@@ -1,8 +1,6 @@
+import TopNavBar from './components/TopNav/TopNavBar'
+
 function App() {
-  return (
-    <div>
-      hello world
-    </div>
-  );
+  return <TopNavBar />
 }
-export default App;
+export default App
