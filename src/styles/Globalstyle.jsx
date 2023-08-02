@@ -8,7 +8,7 @@ const GlobalStyled = createGlobalStyle`
 		box-sizing: border-box;
 	}
   body{
-		font-family: "LINESeedKR", sans-serif;
+	font-family: 'Pretendard', sans-serif;
     font-weight: 400;
 	}
   a{

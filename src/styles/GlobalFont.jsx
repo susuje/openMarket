@@ -1,30 +1,41 @@
 import { createGlobalStyle } from 'styled-components'
 
-import LineSeedRgOtf from '../assets/fonts/LINESeedKR-Rg.otf'
-import LineSeedRgWoff from '../assets/fonts/LINESeedKR-Rg.woff'
-import LineSeedRgWoff2 from '../assets/fonts/LINESeedKR-Rg.woff2'
-import LineSeedBdOtf from '../assets/fonts/LINESeedKR-Bd.otf'
-import LineSeedBdWoff from '../assets/fonts/LINESeedKR-Bd.woff'
-import LineSeedBdWoff2 from '../assets/fonts/LINESeedKR-Bd.woff2'
+import PretendardRgOtf from '../assets/fonts/Pretendard-Regular.otf'
+import PretendardRgWoff from '../assets/fonts/Pretendard-Regular.woff'
+import PretendardRgWoff2 from '../assets/fonts/Pretendard-Regular.woff2'
+import PretendardMOtf from '../assets/fonts/Pretendard-Medium.otf'
+import PretendardMWoff from '../assets/fonts/Pretendard-Medium.woff'
+import PretendardMWoff2 from '../assets/fonts/Pretendard-Medium.woff2'
+import PretendardBdOtf from '../assets/fonts/Pretendard-Bold.otf'
+import PretendardBdWoff from '../assets/fonts/Pretendard-Bold.woff'
+import PretendardBdWoff2 from '../assets/fonts/Pretendard-Bold.woff2'
 
 export default createGlobalStyle`
   @font-face {
-    font-family: "LINESeedKR";
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-    src: url(${LineSeedRgWoff2}) format("woff2"),
-      url(${LineSeedRgWoff}) format("woff"),
-      url(${LineSeedRgOtf}) format("opentype");
-  }
-
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-display: swap;
+  src: local('Pretendard Regular'),
+    url(${PretendardRgWoff2}) format('font-woff2'),
+    url(${PretendardRgWoff}) format('woff'),
+    url(${PretendardRgOtf}) format('opentype');
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  font-display: swap;
+  src: local('Pretendard Medium'),
+    url(${PretendardMWoff2}) format('font-woff2'),
+    url(${PretendardMWoff}) format('woff'),
+    url(${PretendardMOtf}) format('opentype');
+}
   @font-face {
-    font-family: "LINESeedKR";
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-    src: url(${LineSeedBdWoff2}) format("woff2"),
-      url(${LineSeedBdWoff}) format("woff"),
-      url(${LineSeedBdOtf}) format("opentype");
-  }
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-display: swap;
+  src: local('Pretendard Bold'),
+    url(${PretendardBdWoff2}) format('font-woff2'),
+    url(${PretendardBdWoff}) format('woff'),
+    url(${PretendardBdOtf}) format('opentype');
+}
 `
