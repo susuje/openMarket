@@ -2,7 +2,10 @@ import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 
 const GlobalStyled = createGlobalStyle`
- 
+	:root {
+    --grey-border : #C4C4C4;
+    
+  }
   ${reset}
   *{
 		box-sizing: border-box;
