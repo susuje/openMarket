@@ -1,7 +1,36 @@
 import styled from 'styled-components'
-
-export const Container = styled.div`
+import Slider from 'react-slick'
+export const SliderContainer = styled(Slider)`
+  .slick-slide div {
+    margin: 0 10px;
+  }
+  overflow: hidden;
+`
+export const ImageContainer = styled.div`
+  max-width: 200px;
+  max-height: 250px;
+  position: relative;
+`
+export const Img = styled.img`
   width: 200px;
   height: 250px;
-  background-color: beige;
+  object-fit: cover;
+  border-radius: 15px;
+`
+export const H1 = styled.h1`
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 50px;
+  margin-left: 20px;
+  margin-top: 100px;
+`
+export const Title = styled.p`
+  font-weight: 500;
+  font-size: 30px;
+  position: absolute;
+  top: 60px;
+  color: white;
+  width: 100%; // 너비 설정
+  text-align: center; // 정렬 설정
+  z-index: 10;
 `
