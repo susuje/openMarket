@@ -1,9 +1,13 @@
 import React from 'react'
 import * as S from './TopNavBar.style.js'
+import { useNavigate } from 'react-router-dom'
+
 import logo from '../../assets/icon/logo.svg'
 import searchIcon from '../../assets/icon/search.svg'
+import userIcon from '../../assets/icon/icon-user.svg'
 import cartIcon from '../../assets/icon/icon-shopping-cart.svg'
 export default function TopNavBar() {
+  const navigate = useNavigate()
   return (
     <S.Nav>
       <button>
@@ -14,7 +18,11 @@ export default function TopNavBar() {
           <img src={searchIcon} alt="검색 아이콘" />
         </S.SearchBtn>
         <S.CartBtn>
-          <img src={cartIcon} alt="카트 아이콘" />
+          <img
+            src={userIcon}
+            alt="유저 아이콘"
+            onClick={() => navigate('/login')}
+          />
         </S.CartBtn>
       </div>
     </S.Nav>
