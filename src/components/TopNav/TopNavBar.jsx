@@ -28,3 +28,4 @@ export default function TopNavBar() {
     </S.Nav>
   )
 }
+//input 으로 맨처음부터 해야할듯. 돋보기를 button으로하고...
