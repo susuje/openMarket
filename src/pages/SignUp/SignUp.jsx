@@ -15,7 +15,7 @@ export default function SignUp() {
       <S.CheckDiv>
         <S.CheckInput type="checkbox" />
         <S.P>
-          호두샵의 이용약관 및 개인정보처리방침에 대한 내용을 확인하였고
+          플레이랩의 이용약관 및 개인정보처리방침에 대한 내용을 확인하였고
           동의합니다.
         </S.P>
       </S.CheckDiv>
