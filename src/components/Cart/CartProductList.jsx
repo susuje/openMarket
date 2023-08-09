@@ -13,7 +13,7 @@ export default function CartProductList() {
         <S.ProductImg src={Img} />
         <S.ProductInfo>
           <p>Claire_LeMarket</p>
-          <S.H4>스웨이드 플립 플랍</S.H4>
+          <S.H4>스웨이드 플립 플랍 어쩌구 이름</S.H4>
           <S.Price>17,500원</S.Price>
           <p>택배배송 / 무료배송</p>
         </S.ProductInfo>

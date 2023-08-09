@@ -8,7 +8,7 @@ import checked from '../../assets/icon/check-box-Fill.svg'
 //unicorn shop 마크업 찾아보기.
 
 export const Article = styled.article`
-  max-width: 1280px;
+  max-width: 1200px;
   display: flex;
   justify-content: space-between;
   padding: 20px;
@@ -95,7 +95,7 @@ export const FlexDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 3rem;
+  margin-left: 6.5rem;
 `
 export const TotalPrice = styled.strong`
   font-size: 18px;
