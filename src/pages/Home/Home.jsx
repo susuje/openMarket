@@ -3,6 +3,7 @@ import TopNavBar from '../../components/TopNav/TopNavBar'
 import Carousel from '../../components/Carousel/Carousel'
 import CardProduct from '../../components/Product/CardProduct'
 import HomeCategorie from '../../components/Categorie/HomeCategorie'
+import Footer from '../../components/Footer/Footer'
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Carousel />
       <HomeCategorie />
       <CardProduct />
+      <Footer />
     </>
   )
 }
