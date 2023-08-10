@@ -1,6 +1,7 @@
 import React from 'react'
 import * as S from './CartProductList.style'
 
+import AmountBtn from '../Product/AmountBtn'
 import Img from '../../assets/img/cate4.png'
 
 export default function CartProductList() {
@@ -19,11 +20,7 @@ export default function CartProductList() {
         </S.ProductInfo>
       </S.Wrapper>
       <S.Wrapper className="second">
-        <S.CountDiv>
-          <S.CountBtn></S.CountBtn>
-          <S.Num>1</S.Num>
-          <S.CountBtn className="right"></S.CountBtn>
-        </S.CountDiv>
+        <AmountBtn />
         <S.FlexDiv>
           <S.TotalPrice>17,500원</S.TotalPrice>
           <S.BuyBtn>주문하기</S.BuyBtn>
