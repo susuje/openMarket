@@ -13,11 +13,11 @@ export const SellerName = styled.p`
   font-size: 16px;
   font-weight: 700;
   margin-left: 10px;
-  color: #425466;
+  color: var(--light-grey);
   margin-bottom: 12px;
 `
 export const ProductName = styled.p`
-  color: #425466;
+  color: var(--light-grey);
   font-size: 20px;
   font-weight: 500;
   margin-top: 25px;

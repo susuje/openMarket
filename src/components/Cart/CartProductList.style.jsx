@@ -45,7 +45,7 @@ export const ProductImg = styled.img`
 export const ProductInfo = styled.div`
   > p {
     font-size: 14px;
-    color: #767676;
+    color: var(--light-grey);
   }
   > p:first-child {
     margin-bottom: 10px;
