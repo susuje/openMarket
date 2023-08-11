@@ -4,6 +4,7 @@ import reset from 'styled-reset'
 const GlobalStyled = createGlobalStyle`
 	:root {
     --grey-border : #C4C4C4;
+	--light-grey:#767676;
     
   }
   ${reset}
