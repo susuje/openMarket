@@ -57,7 +57,7 @@ export const Price = styled.strong`
   margin-bottom: 65px;
   display: inline-block;
 `
-export const H4 = styled.h4`
+export const ProductName = styled.h4`
   font-size: 18px;
   margin-bottom: 10px;
 `
