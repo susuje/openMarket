@@ -9,7 +9,9 @@ export const H2 = styled.h2`
   font-size: 24px;
   font-weight: 500;
   padding-bottom: 18px;
-  border-bottom: 2px solid var(--grey-border);
+  &.ship {
+    border-bottom: 2px solid var(--grey-border);
+  }
 `
 export const Info = styled.div`
   margin-top: 40px;
@@ -45,20 +47,51 @@ export const InputWrapper = styled.div`
   input {
     height: 40px;
     border: 1px solid var(--grey-border);
-    &#address {
-      width: 170px;
-    }
-    &#name,
-    &#mail,
-    &#reciever {
-      width: 334px;
-    }
-    &#phoneNum {
-      width: 100px;
+    ${({ width }) => width && `width: ${width}`}; //width가 없으면 설정x
 
-      &.first {
-        width: 80px;
-      }
+    &.first {
+      width: 80px;
+    }
+
+    &.long {
+      width: 800px;
+      margin-left: 170px;
+      margin-top: 8px;
     }
   }
+
+  &:last-child {
+    margin-bottom: 70px;
+  }
+`
+export const Wrapper = styled.div`
+  width: 760px;
+`
+
+export const Payment = styled.div`
+  display: flex;
+  border-top: 2px solid var(--grey-border);
+  border-bottom: 2px solid var(--grey-border);
+  padding: 18px 0px;
+
+  div {
+    display: flex;
+    //justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+
+    &:first-child {
+      margin-left: 12px;
+    }
+  }
+  input {
+    margin: 0;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+`
+export const FlexDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
 `

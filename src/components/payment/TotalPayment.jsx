@@ -6,7 +6,7 @@ import checked from '../../assets/icon/check-fill-box.svg'
 
 export default function TotalPayment() {
   return (
-    <>
+    <S.Wrapper>
       <S.H3>최종결제 정보</S.H3>
       <S.Container>
         <S.FirstDiv>
@@ -43,6 +43,6 @@ export default function TotalPayment() {
           <S.Button>결제하기</S.Button>
         </S.LastDiv>
       </S.Container>
-    </>
+    </S.Wrapper>
   )
 }

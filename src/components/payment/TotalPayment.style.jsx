@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 import checked from '../../assets/icon/check-fill-box.svg'
+
+export const Wrapper = styled.div`
+  margin-left: 20px;
+`
 export const H3 = styled.h3`
   font-size: 24px;
   font-weight: 500;
