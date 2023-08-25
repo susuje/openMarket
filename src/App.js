@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp/SignUp'
 import Cart from './pages/Cart/Cart'
 import ProductDetail from './pages/ProductDetail/ProductDetail'
 import Payment from './pages/Payment/Payment'
+import SellerCenter from './pages/SellerCenter/SellerCenter'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/product/:productId" element={<ProductDetail />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/center" element={<SellerCenter />} />
       </Routes>
     </BrowserRouter>
   )
