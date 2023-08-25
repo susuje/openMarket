@@ -2,18 +2,21 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
-  width: 1280px;
+  max-width: 1280px;
   margin: 80px auto 0px auto;
 `
 
 export const Img = styled.img`
-  width: 600px;
-  height: 600px;
+  width: 50%;
+  height: 50%;
+  max-width: 600px;
+  max-height: 600px;
   border-radius: 20px;
 `
 export const InfoWrapper = styled.div`
   margin-left: 50px;
-  width: 630px;
+  max-width: 600px;
+  width: 50%;
   p {
     color: var(--light-grey);
     font-size: 18px;
@@ -81,11 +84,14 @@ export const Div = styled.div`
   border-top: 2px solid var(--grey-border);
   border-bottom: 2px solid var(--grey-border);
 `
-
+export const Btns = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
 export const Btn = styled.button`
   background-color: #000;
   color: white;
-  width: 416px;
+  width: 60%;
   height: 60px;
   border-radius: 5px;
   font-size: 18px;
@@ -93,7 +99,18 @@ export const Btn = styled.button`
   margin-top: 10px;
   &.cart {
     background-color: var(--light-grey);
-    width: 200px;
-    margin-left: 14px;
+    width: 37%;
   }
+`
+
+export const Content = styled.div`
+  background-color: #f2f2f2;
+  max-width: 1280px;
+  height: 40rem;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 40rem;
+  color: var(--grey-border);
+  font-size: 36px;
+  margin-bottom: 140px;
 `

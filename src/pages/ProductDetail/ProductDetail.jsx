@@ -2,6 +2,9 @@ import React from 'react'
 
 import * as S from './ProductDetail.style'
 import TopNavBar from '../../components/TopNav/TopNavBar'
+import DetailTab from '../../components/Product/DetailTab'
+import Footer from '../../components/Footer/Footer'
+
 import sampleImg from '../../assets/img/voyage.jpg'
 import AmountBtn from '../../components/Product/AmountBtn'
 
@@ -33,10 +36,15 @@ export default function ProductDetail() {
               </strong>
             </div>
           </S.TotalPriceDiv>
-          <S.Btn>바로 구매</S.Btn>
-          <S.Btn className="cart">장바구니</S.Btn>
+          <S.Btns>
+            <S.Btn>바로 구매</S.Btn>
+            <S.Btn className="cart">장바구니</S.Btn>
+          </S.Btns>
         </S.InfoWrapper>
       </S.Container>
+      <DetailTab />
+      <S.Content>제품상세</S.Content>
+      <Footer />
     </>
   )
 }
