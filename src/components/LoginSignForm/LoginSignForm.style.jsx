@@ -1,5 +1,9 @@
 import styled from 'styled-components'
+
+import checked from '../../assets/icon/signUp-valid.svg'
 import unChecked from '../../assets/icon/icon-check-off.svg'
+import upArrow from '../../assets/icon/icon-up-arrow.svg'
+import downArrow from '../../assets/icon/icon-down-arrow.svg'
 
 export const Form = styled.form`
   width: 550px;
@@ -63,7 +67,7 @@ export const SignInput = styled.input`
     background: url(${unChecked}) 435px center no-repeat;
   }
 `
-export const JoinBtn = styled.button`
+export const Btn = styled.button`
   color: white;
   border-radius: 5px;
   font-size: 16px;
@@ -74,7 +78,7 @@ export const JoinBtn = styled.button`
   height: 54px;
   padding: auto 31px;
 `
-export const IdContainer = styled.div`
+export const FlexContainer = styled.div`
   display: flex;
 `
 export const PhoneContainer = styled.div`
@@ -86,12 +90,27 @@ export const PhoneContainer = styled.div`
     margin-left: 12px;
   }
 `
-export const SelectBar = styled.select`
+export const SelectBar = styled.div`
+  background: url(${upArrow}) no-repeat 120px/ 22px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 54px;
   width: 120%;
   margin-right: 12px;
   border: 1px solid var(--grey-border);
   border-radius: 5px;
-  text-align: center;
-  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid #000000;
+  }
+
+  &.clicked {
+    background: url(${downArrow}) no-repeat 120px/ 22px 22px;
+  }
+
+  ul {
+    display: none;
+  }
 `
