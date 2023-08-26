@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 
-//전체적으로 padding넣어줘야 확대해도 예브게잘보임.
+export const Wrapper = styled.div`
+  padding: 44px 20px 200px 20px;
+`
 
 export const Container = styled.div`
   width: 100%;
   max-width: 1380px;
-  margin: 0px auto 200px auto;
+  margin: 0px auto;
 `
 export const H1 = styled.h1`
   font-size: 36px;
@@ -16,6 +18,12 @@ export const H1 = styled.h1`
     font-weight: 500;
     box-shadow: inset 0 -10px #bfffa1;
   }
+`
+
+export const Flex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 export const FlexDiv = styled.div`
   display: flex;
