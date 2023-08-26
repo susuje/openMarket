@@ -5,7 +5,6 @@ export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.1);
-  margin-bottom: 44px;
 `
 export const Left = styled.div`
   //background-color: navajowhite;

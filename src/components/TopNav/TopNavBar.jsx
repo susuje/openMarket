@@ -6,6 +6,7 @@ import logo from '../../assets/icon/logo.svg'
 import searchIcon from '../../assets/icon/search.svg'
 import userIcon from '../../assets/icon/icon-user.svg'
 import cartIcon from '../../assets/icon/icon-shopping-cart.svg'
+
 export default function TopNavBar() {
   const navigate = useNavigate()
   return (
