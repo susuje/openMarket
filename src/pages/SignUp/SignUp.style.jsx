@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const JoinBtn = styled.button`
   width: 480px;
   height: 60px;
+  font-size: 18px;
   background-color: var(--grey-border);
   color: white;
   border-radius: 5px;
