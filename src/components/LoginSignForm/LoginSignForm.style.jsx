@@ -95,6 +95,8 @@ export const SelectBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: relative;
   height: 54px;
   width: 120%;
   margin-right: 12px;
@@ -102,15 +104,35 @@ export const SelectBar = styled.div`
   border-radius: 5px;
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:focus {
     border: 1px solid #000000;
   }
 
   &.clicked {
     background: url(${downArrow}) no-repeat 120px/ 22px 22px;
   }
+`
+export const Ul = styled.ul`
+  display: none;
 
-  ul {
-    display: none;
+  &.clicked {
+    display: block;
+    border-radius: 5px;
+    border: 1px solid var(--grey-border);
+    width: 100%;
+    height: 130px;
+    overflow-y: scroll;
+    padding-left: 24px;
+    background-color: #fff;
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+    left: 0;
+  }
+
+  button {
+    padding: 10px;
+    font-size: 16px;
   }
 `

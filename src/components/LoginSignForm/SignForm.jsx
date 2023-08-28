@@ -2,12 +2,30 @@ import React, { useState } from 'react'
 import * as S from './LoginSignForm.style'
 
 export default function SignForm({ seller }) {
-  const [Clicked, isClicked] = useState(false)
+  const [clicked, setClicked] = useState(false)
+  const [phoneNum, setPhoneNum] = useState('010')
   const toggle = () => {
-    isClicked(Clicked => !Clicked) // on,off 개념 boolean
+    setClicked(clicked => !clicked) // on,off 개념 boolean
   }
   const phoneNums = ['010', '011', '016', '017', '018', '019']
 
+  const closeDropdown = () => {
+    if (clicked) setClicked(false)
+  }
+
+  document.addEventListener('click', () => {
+    //console.log('doc이벤트실행')
+    closeDropdown()
+  })
+
+  const handleSelectBarClick = event => {
+    event.stopPropagation() // 안해주면 위 document.addEvent 코드가 실행되어 setClicked(false)가 됨.
+    toggle()
+  }
+
+  const setNumber = e => {
+    setPhoneNum(e.target.innerText) //phoneNum은 문자열임
+  }
   return (
     <S.Form>
       <S.Label htmlFor="id">아이디</S.Label>
@@ -26,20 +44,21 @@ export default function SignForm({ seller }) {
       <S.Label htmlFor="phone">휴대폰 번호</S.Label>
       <S.PhoneContainer>
         <S.SelectBar
-          onClick={() => toggle()}
-          className={Clicked ? 'clicked' : null}
+          onClick={handleSelectBarClick}
+          className={clicked ? 'clicked' : null}
         >
-          010
-          <ul>
-            {/* {ul도 className Clicked 되지않을까?} */}
+          {phoneNum}
+          <S.Ul className={clicked ? 'clicked' : null}>
             {phoneNums.map((num, i) => {
               return (
                 <li>
-                  <button>{num}</button>
+                  <button type="button" onClick={setNumber}>
+                    {num}
+                  </button>
                 </li>
               )
             })}
-          </ul>
+          </S.Ul>
         </S.SelectBar>
         <S.SignInput maxLength={'4'} id="phone" />
         <S.SignInput maxLength={'4'} />
