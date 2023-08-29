@@ -21,9 +21,14 @@ export const CheckInput = styled.input`
   height: 16px;
 `
 export const P = styled.p`
-  color: #767676;
+  color: var(--light-grey);
   align-self: center;
   font-size: 16px;
   margin-top: 14px;
   text-align: left;
+
+  span {
+    font-weight: 700;
+    text-decoration-line: underline;
+  }
 `

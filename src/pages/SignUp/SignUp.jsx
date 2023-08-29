@@ -16,8 +16,8 @@ export default function SignUp() {
       <S.CheckDiv>
         <S.CheckInput type="checkbox" />
         <S.P>
-          플레이랩의 이용약관 및 개인정보처리방침에 대한 내용을 확인하였고
-          동의합니다.
+          플레이랩의 <span>이용약관</span> 및 <span>개인정보처리방침</span>에
+          대한 내용을 확인하였고 동의합니다.
         </S.P>
       </S.CheckDiv>
       <S.JoinBtn>가입하기</S.JoinBtn>

@@ -123,7 +123,7 @@ export const Ul = styled.ul`
     width: 100%;
     height: 130px;
     overflow-y: scroll;
-    padding-left: 24px;
+    padding-left: 15px;
     background-color: #fff;
     position: absolute;
     z-index: 1;
