@@ -13,6 +13,8 @@ export default function SignForm({ seller }) {
   const {
     register,
     handleSubmit,
+    getValues,
+    setValue,
     formState: { errors },
   } = useForm({ mode: 'onChange' })
 
@@ -28,7 +30,22 @@ export default function SignForm({ seller }) {
 
   //phoneNums
   const phoneNums = ['010', '011', '016', '017', '018', '019']
+  const handleMaxLength = e => {
+    console.log(e.target.value)
+    // if (e.target.value.length > 4) {
+    //   e.target.value = e.target.value.slice(0, 4)
+    // }
+    if (e.target.value.length > 4 || !/^\d*$/.test(e.target.value)) {
+      e.target.value = e.target.value.slice(0, 4)
+    }
+    setValue(e.target.name, e.target.value)
+  }
 
+  const blockTextInput = e => {
+    e.target.value = e.target.value
+      .replace(/[^0-9.]/g, '')
+      .replace(/(\..*)\./g, '$1')
+  }
   const closeDropdown = () => {
     if (clicked) setClicked(false)
   }
@@ -54,7 +71,6 @@ export default function SignForm({ seller }) {
         <S.SignInput
           id="id"
           type="text"
-          name="id"
           {...register('id', {
             required: '* 아이디는 필수 입력입니다.',
             pattern: {
@@ -83,11 +99,29 @@ export default function SignForm({ seller }) {
       />
       {errors.pw && <p className="alert">{errors.pw.message}</p>}
       <S.Label htmlFor="pwCheck">비밀번호 재확인</S.Label>
-      <S.SignInput id="pwCheck" className="unChecked" />
-      <S.Label htmlFor="username" style={{ marginTop: '50px' }}>
+      <S.SignInput
+        id="pwCheck"
+        className="unChecked"
+        type="password"
+        {...register('pwCheck', {
+          required: '* 비밀번호를 한번 더 입력해주세요.',
+          validate: value => {
+            const { pw } = getValues()
+            return pw === value || '비밀번호가 일치하지 않습니다'
+          },
+        })}
+      />
+      {errors.pwCheck && <p className="alert">{errors.pwCheck.message}</p>}
+      <S.Label htmlFor="nickname" style={{ marginTop: '50px' }}>
         이름
       </S.Label>
-      <S.SignInput id="username" />
+      <S.SignInput
+        id="nickname"
+        {...register('nickname', {
+          required: '* 이름은 필수 입력입니다.',
+        })}
+      />
+      {errors.nickname && <p className="alert">{errors.nickname.message}</p>}
       <S.Label htmlFor="phone">휴대폰 번호</S.Label>
       <S.PhoneContainer>
         <S.SelectBar
@@ -107,9 +141,41 @@ export default function SignForm({ seller }) {
             })}
           </S.Ul>
         </S.SelectBar>
-        <S.SignInput maxLength={'4'} id="phone" />
-        <S.SignInput maxLength={'4'} />
+        <S.SignInput
+          type="text"
+          maxLength={'4'}
+          id="phone1"
+          onChange={handleMaxLength}
+          onInput={blockTextInput}
+          {...register('phone1', {
+            required: '* 필수 입력입니다.',
+            pattern: {
+              value: /^[0-9]{4}$/,
+              message: '* 숫자를 입력해주세요.',
+            },
+          })}
+        />
+        <S.SignInput
+          type="text"
+          maxLength={'4'}
+          id="phone2"
+          onChange={handleMaxLength}
+          onInput={blockTextInput}
+          {...register('phone2', {
+            required: '* 필수 입력입니다.',
+            pattern: {
+              value: /^[0-9]{4}$/,
+              message: '* 숫자를 입력해주세요.',
+            },
+          })}
+        />
       </S.PhoneContainer>
+      {errors.phone1 ? (
+        <p className="alert">{errors.phone1.message}</p>
+      ) : null || errors.phone2 ? (
+        <p className="alert">{errors.phone2.message}</p>
+      ) : null}
+
       {seller ? (
         <>
           <S.Label htmlFor="businessNum" style={{ marginTop: '50px' }}>

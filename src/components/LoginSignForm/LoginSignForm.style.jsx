@@ -144,7 +144,7 @@ export const Ul = styled.ul`
   }
 `
 
-//
+//회원가입 버튼
 export const JoinBtn = styled.button`
   width: 480px;
   height: 60px;
