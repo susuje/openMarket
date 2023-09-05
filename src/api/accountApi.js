@@ -9,12 +9,11 @@ export const join = async (IsBuyer, userData) => {
 
 //2. 계정 검증
 export const checkUserName = async userName => {
-  //axios.post() 메서드를 사용하여 데이터를 전송할 때, sendData는 객체 형태로 전달하는 것이 일반적
+  //axios.post() 메서드를 사용하여 데이터를 전송할 때, data는 객체 형태로 전달하는 것이 일반적
 
-  const result = await BaseInstance.post(
-    '/accounts/signup/valid/username/',
-    userName
-  )
+  const result = await BaseInstance.post('/accounts/signup/valid/username/', {
+    username: userName,
+  })
   return result.data
 }
 
@@ -22,7 +21,7 @@ export const checkUserName = async userName => {
 export const checkBusinessNum = async num => {
   const result = await BaseInstance.post(
     '/accounts/signup/valid/company_registration_number/',
-    num
+    { company_registration_number: num }
   )
   return result.data
 }

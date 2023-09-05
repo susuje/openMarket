@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import * as S from './LoginSignForm.style'
+import { useNavigate } from 'react-router-dom'
 
-import { checkUserName } from '../../api/accountApi'
+import { checkUserName, join, checkBusinessNum } from '../../api/accountApi'
 
-export default function SignForm({ seller }) {
+export default function SignForm({ seller, IsBuyer }) {
+  const navigate = useNavigate()
   const [checkIdResult, setCheckIdResult] = useState('')
+  const [checkCompany, setCheckCompany] = useState('')
   const [clicked, setClicked] = useState(false)
-
   const [phoneNum, setPhoneNum] = useState('010')
   const toggle = () => {
     setClicked(clicked => !clicked) // on,off 개념 boolean
@@ -23,20 +25,15 @@ export default function SignForm({ seller }) {
     formState: { errors },
   } = useForm({ mode: 'onChange' })
 
-  const onSubmit = data => {
-    data.phone_number = phoneNum + data.phone1 + data.phone2
-    delete data.phone1
-    delete data.phone2
-    console.log(data) // api명세서에 따른 request data
-  }
-
   //정규식
   const Regex = {
     email: /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/,
     id: /^[A-Za-z0-9]{3,20}$/, //20자 이내의 영어 소+대문자, 숫자 가능
     pw: /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/, //8자, 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용
+    num: /^[0-9]+$/,
   }
-  //아이디 중복검사 함수 setValue
+
+  //아이디 중복검사 함수
   const checkUserNameMutation = useMutation(checkUserName, {
     onSuccess(data) {
       setCheckIdResult(data.Success)
@@ -45,12 +42,26 @@ export default function SignForm({ seller }) {
       setCheckIdResult(data.response.data.FAIL_Message)
     },
   })
-  //아이디 중복검사 onClick
+  //사업자번호 중복검사 및 인증
+  const checkCompanyNumMutation = useMutation(checkBusinessNum, {
+    onSuccess(data) {
+      setCheckCompany(data.Success)
+    },
+    onError(data) {
+      setCheckCompany(data.response.data.FAIL_Message)
+    },
+  })
+  //중복검사 onClick
   const handleCheck = e => {
-    const { username } = getValues()
+    const { username, company_registration_number } = getValues()
+    if (e.target.innerText === '중복확인') {
+      checkUserNameMutation.mutate(username)
+    } else {
+      //사업자인증
+      checkCompanyNumMutation.mutate(company_registration_number)
+    }
 
-    checkUserNameMutation.mutate({ username: username })
-    e.preventDefault()
+    e.preventDefault() //form제출을 막아요. 다른input error가뜨지않게해줍니다.
   }
 
   //phoneNums
@@ -87,6 +98,31 @@ export default function SignForm({ seller }) {
     setPhoneNum(e.target.innerText) //phoneNum은 문자열임
   }
 
+  //회원가입mutation
+  const SignUpMutation = useMutation(
+    ({ IsBuyer, ...userData }) => join(IsBuyer, userData),
+    {
+      onSuccess() {
+        window.alert('회원가입 성공!')
+        navigate('/login')
+      },
+      onError(error) {
+        error.response.data.store_name
+          ? window.alert(error.response.data.store_name[0])
+          : window.alert(error)
+      },
+    }
+  )
+
+  //회원가입버튼 submit
+  const onSubmit = data => {
+    data.phone_number = phoneNum + data.phone1 + data.phone2
+    delete data.phone1
+    delete data.phone2
+
+    SignUpMutation.mutate({ IsBuyer, ...data })
+    //mutate 함수는 한 개의 인자만 받을 수 있습니다.
+  }
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
       <S.Label htmlFor="id">아이디</S.Label>
@@ -189,7 +225,7 @@ export default function SignForm({ seller }) {
             required: '* 필수 입력입니다.',
             pattern: {
               value: /^[0-9]{4}$/,
-              message: '* 숫자를 입력해주세요.',
+              message: '* 4자리의 숫자를 입력해주세요.',
             },
           })}
         />
@@ -203,7 +239,7 @@ export default function SignForm({ seller }) {
             required: '* 필수 입력입니다.',
             pattern: {
               value: /^[0-9]{4}$/,
-              message: '* 숫자를 입력해주세요.',
+              message: '* 4자리의 숫자를 입력해주세요.',
             },
           })}
         />
@@ -214,17 +250,59 @@ export default function SignForm({ seller }) {
         <p className="alert">{errors.phone2.message}</p>
       ) : null}
 
-      {seller ? (
+      {IsBuyer === false ? (
         <>
           <S.Label htmlFor="businessNum" style={{ marginTop: '50px' }}>
             사업자 등록번호
           </S.Label>
           <S.FlexContainer>
-            <S.SignInput id="businessNum" />
-            <S.Btn>인증</S.Btn>
+            <S.SignInput
+              id="businessNum"
+              type="text"
+              maxLength={'10'}
+              onInput={e => {
+                setCheckCompany('')
+                blockTextInput(e)
+              }}
+              {...register('company_registration_number', {
+                required: '* 사업자 등록번호는 필수 입력입니다.',
+                pattern: {
+                  value: /^[0-9]{10}$/,
+                  message: '* 사업자 등록번호는 숫자 10자로 이루어져야 합니다.',
+                },
+                validate: () => {
+                  if (checkCompany === '사용 가능한 사업자등록번호입니다.') {
+                    return true
+                  } else if (
+                    checkCompany ===
+                    'company_registration_number 필드를 추가해주세요 :)'
+                  ) {
+                    return '사업자 등록번호를 입력해주세요'
+                  } else if (
+                    checkCompany === '이미 등록된 사업자등록번호입니다.'
+                  ) {
+                    return checkCompany
+                  }
+                },
+              })}
+            />
+            <S.Btn onClick={handleCheck} disabled={true}>
+              인증
+            </S.Btn>
           </S.FlexContainer>
+          {!checkCompany && errors.company_registration_number && (
+            <p className="alert">
+              {errors.company_registration_number.message}
+            </p>
+          )}
+          <p className="alert">{checkCompany}</p>
           <S.Label htmlFor="storeName">스토어 이름</S.Label>
-          <S.SignInput id="storeName" />
+          <S.SignInput
+            id="storeName"
+            {...register('store_name', {
+              required: '* 스토어 이름은 필수 입력입니다.',
+            })}
+          />
         </>
       ) : null}
       <S.CheckDiv>

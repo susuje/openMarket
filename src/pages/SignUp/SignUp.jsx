@@ -11,7 +11,7 @@ export default function SignUp() {
     <SC.Container>
       <SC.Img src={logo} alt="로고" />
       <TabBtn content={'가입'} setIsBuyer={setIsBuyer} IsBuyer={IsBuyer} />
-      {IsBuyer ? <SignForm /> : <SignForm seller="true" />}
+      <SignForm IsBuyer={IsBuyer} />
     </SC.Container>
   )
 }
