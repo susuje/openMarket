@@ -82,8 +82,17 @@ export const Btn = styled.button`
   font-weight: 500;
   width: 122px;
   background-color: #000000;
+
   height: 54px;
   padding: auto 31px;
+  &.disabled {
+    background-color: var(--grey-border);
+    cursor: default;
+  }
+  &.abled {
+    background-color: #000000;
+    cursor: pointer;
+  }
 `
 export const FlexContainer = styled.div`
   display: flex;
@@ -149,9 +158,17 @@ export const JoinBtn = styled.button`
   width: 480px;
   height: 60px;
   font-size: 18px;
-  background-color: var(--grey-border);
+
   color: white;
   border-radius: 5px;
+  &.disabled {
+    background-color: var(--grey-border);
+    cursor: default;
+  }
+  &.abled {
+    background-color: #000000;
+    cursor: pointer;
+  }
 `
 
 export const CheckDiv = styled.div`

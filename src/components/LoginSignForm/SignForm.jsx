@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import * as S from './LoginSignForm.style'
@@ -10,6 +10,9 @@ export default function SignForm({ seller, IsBuyer }) {
   const navigate = useNavigate()
   const [checkIdResult, setCheckIdResult] = useState('')
   const [checkCompany, setCheckCompany] = useState('')
+  const [isDisabled, setIsDisabled] = useState(true)
+  const [isCheckDisabled, setIsCheckDisabled] = useState(true)
+  const [isJoinDisabled, setIsJoinDisabled] = useState(true)
   const [clicked, setClicked] = useState(false)
   const [phoneNum, setPhoneNum] = useState('010')
   const toggle = () => {
@@ -20,15 +23,31 @@ export default function SignForm({ seller, IsBuyer }) {
   const {
     register,
     handleSubmit,
+    watch,
     getValues,
     setValue,
     formState: { errors },
   } = useForm({ mode: 'onChange' })
 
+  const { username, password, company_registration_number } = getValues()
+  //위에 값들만 밑에 사용됨.
+
+  const All = watch()
+
+  useEffect(() => {
+    const allInputFilled = Object.values(All).every(el => Boolean(el))
+
+    if (allInputFilled) {
+      setIsJoinDisabled(false)
+    } else {
+      setIsJoinDisabled(true)
+    }
+  }, [All])
+
   //정규식
   const Regex = {
     email: /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/,
-    id: /^[A-Za-z0-9]{3,20}$/, //20자 이내의 영어 소+대문자, 숫자 가능
+    id: /^[A-Za-z0-9]{4,20}$/, //20자 이내의 영어 소+대문자, 숫자 가능
     pw: /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/, //8자, 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용
     num: /^[0-9]+$/,
   }
@@ -53,7 +72,6 @@ export default function SignForm({ seller, IsBuyer }) {
   })
   //중복검사 onClick
   const handleCheck = e => {
-    const { username, company_registration_number } = getValues()
     if (e.target.innerText === '중복확인') {
       checkUserNameMutation.mutate(username)
     } else {
@@ -108,7 +126,7 @@ export default function SignForm({ seller, IsBuyer }) {
       },
       onError(error) {
         error.response.data.store_name
-          ? window.alert(error.response.data.store_name[0])
+          ? window.alert(error.response.data.store_name[0]) //스토어이름 중복시 에러뜨게
           : window.alert(error)
       },
     }
@@ -123,6 +141,17 @@ export default function SignForm({ seller, IsBuyer }) {
     SignUpMutation.mutate({ IsBuyer, ...data })
     //mutate 함수는 한 개의 인자만 받을 수 있습니다.
   }
+  const handleDisabled = e => {
+    //사업자 번호 인증
+    e.target.value.length === 10 ? setIsDisabled(false) : setIsDisabled(true)
+  }
+  const handleCheckDisabled = e => {
+    // 아이디 중복 버튼
+    e.target.value.length >= 4
+      ? setIsCheckDisabled(false)
+      : setIsCheckDisabled(true)
+  }
+
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
       <S.Label htmlFor="id">아이디</S.Label>
@@ -130,7 +159,12 @@ export default function SignForm({ seller, IsBuyer }) {
         <S.SignInput
           id="id"
           type="text"
-          onInput={() => setCheckIdResult('')}
+          minLength={'4'}
+          maxLength={'20'}
+          onInput={e => {
+            setCheckIdResult('')
+            handleCheckDisabled(e)
+          }}
           {...register('username', {
             //username은 ID
             required: '* 아이디는 필수 입력입니다.',
@@ -138,7 +172,7 @@ export default function SignForm({ seller, IsBuyer }) {
               //정규식
               value: Regex.id,
               message:
-                '* 20자 이내의 영어 대소문자 및 숫자를 포함한 아이디를 입력하세요.',
+                '* 20자 이내의 영어 대소문자 및 숫자를 가진 아이디를 입력하세요.',
             },
             validate: () => {
               if (checkIdResult === '멋진 아이디네요 :)') {
@@ -151,8 +185,13 @@ export default function SignForm({ seller, IsBuyer }) {
             },
           })}
         />
-        <S.Btn onClick={handleCheck}>중복확인</S.Btn>
-        {/* getValue와 if문으로 ... */}
+        <S.Btn
+          onClick={handleCheck}
+          disabled={isCheckDisabled}
+          className={isCheckDisabled ? 'disabled' : 'abled'}
+        >
+          중복확인
+        </S.Btn>
       </S.FlexContainer>
       {!checkIdResult && errors.username && (
         <p className="alert">{errors.username.message}</p>
@@ -180,7 +219,6 @@ export default function SignForm({ seller, IsBuyer }) {
         {...register('password2', {
           required: '* 비밀번호를 한번 더 입력해주세요.',
           validate: value => {
-            const { password } = getValues() // password는  input의 name이 password인 input의 value
             return password === value || '비밀번호가 일치하지 않습니다'
           },
         })}
@@ -263,6 +301,7 @@ export default function SignForm({ seller, IsBuyer }) {
               onInput={e => {
                 setCheckCompany('')
                 blockTextInput(e)
+                handleDisabled(e)
               }}
               {...register('company_registration_number', {
                 required: '* 사업자 등록번호는 필수 입력입니다.',
@@ -286,7 +325,11 @@ export default function SignForm({ seller, IsBuyer }) {
                 },
               })}
             />
-            <S.Btn onClick={handleCheck} disabled={true}>
+            <S.Btn
+              onClick={handleCheck}
+              disabled={isDisabled}
+              className={isDisabled ? 'disabled' : 'abled'}
+            >
               인증
             </S.Btn>
           </S.FlexContainer>
@@ -305,6 +348,9 @@ export default function SignForm({ seller, IsBuyer }) {
           />
         </>
       ) : null}
+      {errors.store_name ? (
+        <p className="alert">{errors.store_name.message}</p>
+      ) : null}
       <S.CheckDiv>
         <S.CheckInput type="checkbox" required />
         <S.P>
@@ -312,7 +358,12 @@ export default function SignForm({ seller, IsBuyer }) {
           대한 내용을 확인하였고 동의합니다.
         </S.P>
       </S.CheckDiv>
-      <S.JoinBtn>가입하기</S.JoinBtn>
+      <S.JoinBtn
+        disabled={isJoinDisabled}
+        className={isJoinDisabled ? 'disabled' : 'abled'}
+      >
+        가입하기
+      </S.JoinBtn>
     </S.Form>
   )
 }
