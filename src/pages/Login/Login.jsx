@@ -11,7 +11,7 @@ export default function Login() {
     <S.Container>
       <S.Img src={logo} alt="로고" />
       <TabBtn content={'로그인'} setIsBuyer={setIsBuyer} IsBuyer={IsBuyer} />
-      <LoginForm />
+      <LoginForm IsBuyer={IsBuyer} />
       <S.Footer>
         <a href="/signup">회원가입</a>
         <a href="/">비밀번호 찾기</a>

@@ -10,6 +10,8 @@ export default function SignForm({ seller, IsBuyer }) {
   const navigate = useNavigate()
   const [checkIdResult, setCheckIdResult] = useState('')
   const [checkCompany, setCheckCompany] = useState('')
+  const [checkPw, setCheckPw] = useState(false)
+  const [checkPw2, setCheckPw2] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
   const [isCheckDisabled, setIsCheckDisabled] = useState(true)
   const [isJoinDisabled, setIsJoinDisabled] = useState(true)
@@ -29,7 +31,8 @@ export default function SignForm({ seller, IsBuyer }) {
     formState: { errors },
   } = useForm({ mode: 'onChange' })
 
-  const { username, password, company_registration_number } = getValues()
+  const { username, password, password2, company_registration_number } =
+    getValues()
   //위에 값들만 밑에 사용됨.
 
   const All = watch()
@@ -46,11 +49,26 @@ export default function SignForm({ seller, IsBuyer }) {
 
   //정규식
   const Regex = {
-    email: /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/,
     id: /^[A-Za-z0-9]{4,20}$/, //20자 이내의 영어 소+대문자, 숫자 가능
     pw: /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/, //8자, 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용
     num: /^[0-9]+$/,
   }
+
+  //비밀번호 검증
+  useEffect(() => {
+    if (Regex.pw.test(password)) {
+      setCheckPw(true)
+    } else {
+      setCheckPw(false)
+    }
+  }, [password])
+  useEffect(() => {
+    if (Regex.pw.test(password) && password === password2) {
+      setCheckPw2(true)
+    } else {
+      setCheckPw2(false)
+    }
+  }, [password, password2])
 
   //아이디 중복검사 함수
   const checkUserNameMutation = useMutation(checkUserName, {
@@ -200,7 +218,7 @@ export default function SignForm({ seller, IsBuyer }) {
       <S.Label htmlFor="pw">비밀번호</S.Label>
       <S.SignInput
         id="pw"
-        className="unChecked"
+        className={checkPw ? 'checked' : 'unChecked'}
         type="password"
         {...register('password', {
           required: '* 비밀번호는 필수 입력입니다.',
@@ -214,7 +232,7 @@ export default function SignForm({ seller, IsBuyer }) {
       <S.Label htmlFor="pwCheck">비밀번호 재확인</S.Label>
       <S.SignInput
         id="pwCheck"
-        className="unChecked"
+        className={checkPw2 ? 'checked' : 'unChecked'}
         type="password"
         {...register('password2', {
           required: '* 비밀번호를 한번 더 입력해주세요.',

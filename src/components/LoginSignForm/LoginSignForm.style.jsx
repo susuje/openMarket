@@ -73,6 +73,9 @@ export const SignInput = styled.input`
   &.unChecked {
     background: url(${unChecked}) 435px center no-repeat;
   }
+  &.checked {
+    background: url(${checked}) 435px center no-repeat;
+  }
 `
 export const Btn = styled.button`
   color: white;
