@@ -5,6 +5,13 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 import { login } from '../../api/logInOutApi'
+import { useSetRecoilState } from 'recoil'
+import {
+  userTokenState,
+  isLoginState,
+  userTypeState,
+  myUserName,
+} from '../../atoms/Atoms'
 
 export default function LoginForm({ IsBuyer }) {
   //IsBuyer ? 구매회원로그인true : 판매회원로그인false
@@ -14,12 +21,21 @@ export default function LoginForm({ IsBuyer }) {
   // 		"login_type": String // BUYER : 일반 구매자, SELLER : 판매자
   // }
   const [errorM, setErrorM] = useState('')
+  const setUserToken = useSetRecoilState(userTokenState) // 사용자 토큰 상태 설정
+  const setIsLoginState = useSetRecoilState(isLoginState) // 로그인 상태 설정
+  const setUserName = useSetRecoilState(myUserName) // 아이디  설정
+  const setUserTypeState = useSetRecoilState(userTypeState) // 구매or판매자 상태 설정
+
   const navigate = useNavigate()
+
   const { register, handleSubmit } = useForm({ mode: 'onChange' })
 
   const LoginMutation = useMutation(login, {
     onSuccess(data) {
-      console.log(data)
+      setIsLoginState(true)
+      setUserToken(data.token)
+      setUserTypeState(data.user_type)
+      navigate('/')
     },
     onError(error) {
       setErrorM(error.response.data.FAIL_Message)
@@ -29,6 +45,7 @@ export default function LoginForm({ IsBuyer }) {
   const onSubmit = data => {
     data.login_type = IsBuyer ? 'BUYER' : 'SELLER'
     LoginMutation.mutate(data)
+    setUserName(data.username)
   }
 
   return (
