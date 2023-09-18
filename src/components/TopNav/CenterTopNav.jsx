@@ -1,7 +1,7 @@
 import React from 'react'
-import * as S from './sellerTopNav.style'
+import * as S from './CenterTopNav.style'
 import logo from '../../assets/icon/logo.svg'
-export default function SellerTopNav() {
+export default function CenterTopNav() {
   return (
     <S.Nav>
       <S.Left>

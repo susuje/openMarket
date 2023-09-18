@@ -3,7 +3,7 @@ import * as S from './SellerCenter.style'
 
 import productUploadBtn from '../../assets/icon/productUploadBtn.svg'
 
-import SellerTopNav from '../../components/TopNav/SellerTopNav'
+import CenterTopNav from '../../components/TopNav/CenterTopNav'
 import MenuTab from '../../components/SellerCenter/MenuTab'
 import ProductListBox from '../../components/SellerCenter/ProductListBox'
 import Footer from '../../components/Footer/Footer'
@@ -11,7 +11,7 @@ import Footer from '../../components/Footer/Footer'
 export default function SellerCenter() {
   return (
     <>
-      <SellerTopNav />
+      <CenterTopNav />
       <S.Wrapper>
         <S.Container>
           <S.Flex>

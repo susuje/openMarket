@@ -1,14 +1,14 @@
 import React from 'react'
 import * as S from './ProductUpload.style'
 
-import SellerTopNav from '../../components/TopNav/SellerTopNav'
+import CenterTopNav from '../../components/TopNav/CenterTopNav'
 import NumberInput from '../../components/Product/NumberInput'
 import Footer from '../../components/Footer/Footer'
 
 export default function ProductUpload() {
   return (
     <>
-      <SellerTopNav />
+      <CenterTopNav />
       <S.Wrapper>
         <S.Container>
           <S.H1>상품 등록</S.H1>
