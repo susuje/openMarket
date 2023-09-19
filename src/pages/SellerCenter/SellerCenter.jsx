@@ -1,6 +1,6 @@
 import React from 'react'
 import * as S from './SellerCenter.style'
-
+import { useNavigate } from 'react-router-dom'
 import productUploadBtn from '../../assets/icon/productUploadBtn.svg'
 
 import CenterTopNav from '../../components/TopNav/CenterTopNav'
@@ -9,6 +9,7 @@ import ProductListBox from '../../components/SellerCenter/ProductListBox'
 import Footer from '../../components/Footer/Footer'
 
 export default function SellerCenter() {
+  const navigate = useNavigate()
   return (
     <>
       <CenterTopNav />
@@ -18,7 +19,7 @@ export default function SellerCenter() {
             <S.H1>
               대시보드 <span>Kurong Shop</span>
             </S.H1>
-            <button>
+            <button onClick={() => navigate('/productUpload')}>
               <img src={productUploadBtn} alt="상품 업로드 버튼" />
             </button>
           </S.Flex>

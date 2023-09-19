@@ -43,7 +43,7 @@ export const Caution = styled.div`
   }
 `
 
-//////////////////////////오른쪽 v
+//////////////////////////오른쪽 form v
 
 export const UploadForm = styled.form`
   color: var(--light-grey); //label 폰트색상
@@ -104,7 +104,7 @@ export const InputBox = styled.div`
   small {
     color: var(--grey-border);
     position: absolute;
-    top: 50%;
+    top: 45px;
     right: 20px;
   }
 `
