@@ -11,17 +11,19 @@ import {
 } from '../../atoms/Atoms.js'
 
 import logo from '../../assets/icon/logo.svg'
-import searchIcon from '../../assets/icon/search.svg'
 import userIcon from '../../assets/icon/icon-user.svg'
 import cartIcon from '../../assets/icon/icon-shopping-cart.svg'
 
-export default function TopNavBar() {
+export default function TopNavBar({ userType }) {
   const userName = useRecoilValue(myUserName)
   const [showMenu, setShowMenu] = useState(false)
+  const [typedInput, setTypedInput] = useState(false)
+
   const setIsLogin = useSetRecoilState(isLoginState)
   const setUserToken = useSetRecoilState(userTokenState)
   const setUserName = useSetRecoilState(myUserName)
   const setUserType = useSetRecoilState(userTypeState)
+
   const toggle = () => {
     setShowMenu(showMenu => !showMenu) // on,off 개념 boolean
   }
@@ -40,9 +42,15 @@ export default function TopNavBar() {
         <img src={logo} alt="로고 이미지" />
       </button>
       <S.FlexBox>
-        <S.SearchBtn>
-          <img src={searchIcon} alt="검색 아이콘" />
-        </S.SearchBtn>
+        <S.SearchBox>
+          <S.SearchInput
+            onChange={e =>
+              e.target.value ? setTypedInput(true) : setTypedInput(false)
+            }
+            className={typedInput ? 'typed' : null}
+          />
+          <S.SearchBtn></S.SearchBtn>
+        </S.SearchBox>
         <S.UserBox>
           <S.UserBtn
             onClick={userName ? () => toggle() : () => navigate('/login')}
@@ -56,9 +64,15 @@ export default function TopNavBar() {
               <li>
                 <button>마이페이지</button>
               </li>
-              <li className="second">
-                <button>장바구니</button>
-              </li>
+              {userType === 'BUYER' ? (
+                <li className="second">
+                  <button>장바구니</button>
+                </li>
+              ) : (
+                <li className="second" onClick={() => navigate('/center')}>
+                  <button>판매자 센터</button>
+                </li>
+              )}
               <li>
                 <button onClick={handleLogout}>로그아웃</button>
               </li>

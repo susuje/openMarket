@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import triangleUp from '../../assets/icon/icon-triangle-up.svg'
 import triangleDown from '../../assets/icon/icon-triangle-down.svg'
+import searchIcon from '../../assets/icon/search.svg'
+
 export const Nav = styled.nav`
   padding: 20px;
   display: flex;
@@ -10,30 +12,34 @@ export const Nav = styled.nav`
 export const FlexBox = styled.div`
   display: flex;
 `
-
-export const SearchBtn = styled.button`
+export const SearchBox = styled.div`
+  position: relative;
+`
+export const SearchInput = styled.input`
   border: 1px solid #e0e0e0;
   width: 82px;
   height: 42px;
-  //padding: 10px 30px;
-  border-radius: 30px;
+
+  padding: 0 60px 0 30px;
+  border-radius: 20px;
   margin-right: 5px;
   transition: all 1s;
-  position: relative;
+
   &:hover {
     width: 600px;
-    > img {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      right: 20px;
-    }
   }
-  img {
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    transform: translate(-50%, -50%);
+
+  &.typed {
+    width: 600px;
   }
+`
+export const SearchBtn = styled.button`
+  background: url(${searchIcon}) center center no-repeat;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 5px;
+  right: 35px;
 `
 
 export const UserBox = styled.div`
