@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 import * as S from './NumberInput.style'
 
-export default function NumberInput({ unit }) {
+const NumberInput = forwardRef(({ unit, id, type, register, onInput }, ref) => {
   return (
     <S.Flex>
-      <S.NumberInput></S.NumberInput>
+      <S.NumberInput
+        id={id}
+        type={type}
+        ref={ref}
+        onInput={onInput}
+        {...register}
+      ></S.NumberInput>
       <S.Unit>{unit}</S.Unit>
     </S.Flex>
   )
-}
+})
+
+export default NumberInput

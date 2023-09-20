@@ -95,7 +95,7 @@ export const InputBox = styled.div`
   margin-bottom: 16px;
 
   label {
-    display: block;
+    display: inline-block;
     margin-bottom: 10px;
   }
   &:first-child {
@@ -114,7 +114,7 @@ export const NameInput = styled.input`
   width: 100%;
   height: 54px;
   border: 1px solid var(--grey-border);
-  padding: 17px 70px 17px 16px;
+  padding: 17px 70px 17px 10px;
 `
 
 export const ShipBtn = styled.button`
@@ -141,6 +141,7 @@ export const ShipBtn = styled.button`
 export const ProductDetail = styled.div`
   p {
     margin-bottom: 10px;
+    display: inline-block;
   }
   textarea {
     border-radius: 5px;
@@ -179,4 +180,11 @@ export const UploadBtn = styled.button`
   color: white;
   background-color: #000000;
   margin-left: 14px;
+`
+
+export const Error = styled.p`
+  color: var(--red);
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 10px;
 `

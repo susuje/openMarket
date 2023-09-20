@@ -9,6 +9,7 @@ export const NumberInput = styled.input`
   border-radius: 5px 0px 0px 5px;
   width: 165px;
   height: 54px;
+  padding: 0 10px;
 `
 export const Unit = styled.div`
   width: 55px;
