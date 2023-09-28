@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import imgIcon from '../../assets/icon/icon-uploadImg.svg'
 
 export const Wrapper = styled.div`
@@ -56,38 +56,44 @@ export const GridDiv = styled.div`
   grid-template-columns: 1fr 2fr;
   margin-bottom: 40px;
 `
-
-export const ProductImg = styled.div`
-  p {
+export const ImageDiv = styled.div`
+  label {
+    display: inline-block;
     margin-bottom: 10px;
   }
 `
-
-export const InputLabel = styled.label`
-  display: block;
+export const ProductImg = styled.div`
   width: 100%;
   aspect-ratio: 1/1; /* 가로 너비와 세로 높이의 비율을 1:1로 설정 */
   background-color: var(--grey-border);
   position: relative;
+
+  ${({ $previewImage }) =>
+    $previewImage &&
+    `
+        background-image:url(${$previewImage});
+        background-repeat:no-repeat;
+        background-position:center center;
+        background-size:cover;      
+      `}
+
   &:hover {
     background-color: #d2d1d1;
-  }
-  &::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: url(${imgIcon}) no-repeat center center / contain;
   }
   input {
     display: none;
   }
 `
 
+export const ImgUploadBtn = styled.button`
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url(${imgIcon}) no-repeat center center / contain;
+`
 export const ProductInfo = styled.div`
   margin-left: 30px;
 `
@@ -178,8 +184,16 @@ export const UploadBtn = styled.button`
   font-weight: 700;
   border-radius: 5px;
   color: white;
-  background-color: #000000;
   margin-left: 14px;
+
+  &.disabled {
+    background-color: var(--grey-border);
+    cursor: default;
+  }
+  &.abled {
+    background-color: #000000;
+    cursor: pointer;
+  }
 `
 
 export const Error = styled.p`

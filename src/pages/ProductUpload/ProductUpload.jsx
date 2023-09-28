@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
+import { userTokenState } from '../../atoms/Atoms'
 
 import * as S from './ProductUpload.style'
 
@@ -8,9 +11,19 @@ import CenterTopNav from '../../components/TopNav/CenterTopNav'
 import NumberInput from '../../components/Product/NumberInput'
 import Footer from '../../components/Footer/Footer'
 
+import { uploadProduct } from '../../api/ProductApi'
+
 export default function ProductUpload() {
+  const navigate = useNavigate()
   const [parcelClicked, setParcelClicked] = useState(true)
   const [deliveryClicked, setDeliveryClicked] = useState(false)
+  const [uploadImage, setUploadImage] = useState(null)
+  const [previewImage, setPreviewImage] = useState(null)
+  const [isSavedDisabled, setIsSavedDisabled] = useState(true)
+  const imageInput = useRef(null)
+
+  const token = useRecoilValue(userTokenState)
+
   //react-hook-form
   const {
     register,
@@ -24,6 +37,35 @@ export default function ProductUpload() {
   useEffect(() => {
     setValue('shipping_method', 'PARCEL')
   }, [])
+
+  const { image } = getValues()
+  const All = watch()
+  useEffect(() => {
+    const allInputFilled = Object.values(All).every(el => Boolean(el))
+
+    if (allInputFilled) {
+      setIsSavedDisabled(false)
+    } else {
+      setIsSavedDisabled(true)
+    }
+  }, [image, All])
+
+  const handleImage = () => {
+    imageInput.current.click()
+  }
+
+  const handleImageChange = e => {
+    //이부분 다시보기
+    console.log('이미지선택')
+    const file = e.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      setPreviewImage(reader.result)
+    }
+    //setUploadImage(file)
+    setValue('image', file)
+  }
 
   //배송방법 버튼
   const handleShipping = e => {
@@ -46,11 +88,33 @@ export default function ProductUpload() {
       .replace(/(\..*)\./g, '$1')
   }
 
-  //회원가입버튼 submit
+  const UploadProductMutation = useMutation(
+    ({ token, ...data }) => uploadProduct(token, data),
+    {
+      onSuccess(data) {
+        window.alert('상품업로드 성공!')
+        console.log(data)
+        navigate('/center')
+      },
+      onError(error) {
+        console.log(error)
+      },
+    }
+  )
+
+  //회원가입버튼 submit // 9.22 이제 이부분해얗ㅁ
   const onSubmit = data => {
-    //shipping이 빈문자열이면,
-    console.log(data) // mutate 할때 parseInt해줘야함.
-    // SignUpMutation.mutate({ IsBuyer, ...data })
+    //shipping 또는 image가 빈문자열이면, 예외처리해줘야함
+
+    const productData = {
+      ...data,
+      price: parseInt(data.price, 10),
+      shipping_fee: parseInt(data.shipping_fee, 10),
+    }
+
+    console.log(productData)
+
+    UploadProductMutation.mutate({ token, ...productData })
   }
 
   return (
@@ -72,16 +136,19 @@ export default function ProductUpload() {
             </S.Caution>
             <S.UploadForm onSubmit={handleSubmit(onSubmit)}>
               <S.GridDiv>
-                <S.ProductImg>
-                  <p>상품 이미지</p>
-                  <S.InputLabel htmlFor="uploadImg">
+                <S.ImageDiv>
+                  <label htmlFor="image">상품 이미지</label>
+                  <S.ProductImg $previewImage={previewImage}>
                     <input
-                      id="uploadImg"
+                      id="image"
                       type="file"
-                      accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
+                      accept=".jpg, .gif, .png"
+                      ref={imageInput}
+                      onChange={handleImageChange}
                     />
-                  </S.InputLabel>
-                </S.ProductImg>
+                    <S.ImgUploadBtn type="button" onClick={handleImage} />
+                  </S.ProductImg>
+                </S.ImageDiv>
                 <S.ProductInfo>
                   <S.InputBox>
                     <label htmlFor="productName">상품명</label>
@@ -173,7 +240,13 @@ export default function ProductUpload() {
               </S.ProductDetail>
               <S.Btns>
                 <S.CancelBtn>취소</S.CancelBtn>
-                <S.UploadBtn type="submit">저장하기</S.UploadBtn>
+                <S.UploadBtn
+                  type="submit"
+                  disabled={isSavedDisabled}
+                  className={isSavedDisabled ? 'disabled' : 'abled'}
+                >
+                  저장하기
+                </S.UploadBtn>
               </S.Btns>
             </S.UploadForm>
           </S.FlexDiv>

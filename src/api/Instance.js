@@ -15,7 +15,6 @@ export const tokenConfig = token => {
   return {
     headers: {
       Authorization: `JWT ${token}`,
-      'Content-Type': 'application/json',
     },
   }
 }
