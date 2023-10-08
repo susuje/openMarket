@@ -16,3 +16,9 @@ export const uploadProduct = async (token, data) => {
   const result = await BaseInstance.post('/products/', data, config)
   return result.data
 }
+
+//3.3 상품 디테일(GET)
+export const getProductDetail = async product_id => {
+  const result = await BaseInstance.get(`/products/${product_id}`)
+  return result.data
+}

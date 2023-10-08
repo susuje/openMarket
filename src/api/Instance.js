@@ -9,14 +9,3 @@ export const BaseInstance = axios.create({
     'Content-Type': 'application/json',
   },
 })
-
-// 토큰 포함
-export const tokenConfig = token => {
-  return {
-    headers: {
-      Authorization: `JWT ${token}`,
-    },
-  }
-}
-
-//이거써보기
