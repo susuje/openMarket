@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
 
 import * as S from './ProductDetail.style'
 import TopNavBar from '../../components/TopNav/TopNavBar'
@@ -7,8 +8,21 @@ import Footer from '../../components/Footer/Footer'
 
 import sampleImg from '../../assets/img/voyage.jpg'
 import AmountBtn from '../../components/Product/AmountBtn'
+import { useParams } from 'react-router-dom'
+
+import { getProductDetail } from '../../api/ProductApi'
 
 export default function ProductDetail() {
+  const { product_id } = useParams()
+
+  useEffect(() => {
+    // getMyInfoAPI(token).then(data => {
+    //   setMyProfileImg(data.user.image) //프로필 사진 가져오기
+    // })
+    // getPostDetailAPI(postId, token).then(data => {
+    //   setPostData(data) //postData는 지금 {post: 어쩌구..}, post =postData.post
+    // })
+  }, [])
   return (
     <>
       <TopNavBar />

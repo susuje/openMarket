@@ -1,4 +1,6 @@
 import React from 'react'
+import * as S from './Home.style'
+
 import TopNavBar from '../../components/TopNav/TopNavBar'
 import Carousel from '../../components/Carousel/Carousel'
 import CardProduct from '../../components/Product/CardProduct'
@@ -15,7 +17,14 @@ export default function Home() {
       <TopNavBar userType={userType} />
       <Carousel />
       <HomeCategorie />
-      <CardProduct />
+      <S.ProductContainer>
+        <S.ProductLists>
+          <CardProduct />
+          <CardProduct />
+          <CardProduct />
+          <CardProduct />
+        </S.ProductLists>
+      </S.ProductContainer>
       <Footer />
     </>
   )
