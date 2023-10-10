@@ -2,6 +2,10 @@ import { BaseInstance } from './Instance'
 
 //3.1 상품 전체 불러오기(GET)
 ////3.1.1) 상품 전체 불러오기(GET)
+export const getAllProducts = async () => {
+  const result = await BaseInstance.get(`/products/`)
+  return result.data
+}
 
 ////3.1.2) 판매자 상품 불러오기(GET)
 
