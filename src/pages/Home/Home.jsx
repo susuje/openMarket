@@ -5,6 +5,7 @@ import TopNavBar from '../../components/TopNav/TopNavBar'
 import Carousel from '../../components/Carousel/Carousel'
 import CardProduct from '../../components/Product/CardProduct'
 import HomeCategorie from '../../components/Categorie/HomeCategorie'
+import PageNationBtn from '../../components/PageNationBtn/PageNationBtn'
 import Footer from '../../components/Footer/Footer'
 
 import { useRecoilValue } from 'recoil'
@@ -32,6 +33,7 @@ export default function Home() {
           ))}
         </S.ProductLists>
       </S.ProductContainer>
+      <PageNationBtn />
       <Footer />
     </>
   )
