@@ -15,11 +15,15 @@ import { userTypeState } from '../../atoms/Atoms'
 export default function Home() {
   const userType = useRecoilValue(userTypeState)
   const [allProducts, setAllProducts] = useState([])
+  const [pageNum, setPageNum] = useState(1)
+  const [allPages, setAllPages] = useState(1)
+
   useEffect(() => {
-    getAllProducts().then(data => {
+    getAllProducts(pageNum).then(data => {
       setAllProducts(data.results)
+      setAllPages(Math.floor(data.count / 15) + 1)
     })
-  }, [])
+  }, [pageNum])
 
   return (
     <>
@@ -33,7 +37,11 @@ export default function Home() {
           ))}
         </S.ProductLists>
       </S.ProductContainer>
-      <PageNationBtn />
+      <PageNationBtn
+        pageNum={pageNum}
+        setPageNum={setPageNum}
+        allPages={allPages}
+      />
       <Footer />
     </>
   )

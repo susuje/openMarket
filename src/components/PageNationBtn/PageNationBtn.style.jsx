@@ -32,12 +32,20 @@ export const PageNumList = styled.li`
   }
 `
 export const LeftBtn = styled.button`
-  background: url(${leftBtn}) center center no-repeat;
+  background: url(${activeLeftBtn}) center center no-repeat;
   width: 33px;
   height: 33px;
+  &.disabled {
+    background: url(${leftBtn}) center center no-repeat;
+    cursor: default;
+  }
 `
 export const RightBtn = styled.button`
   background: url(${activeRightBtn}) center center no-repeat;
   width: 33px;
   height: 33px;
+  &.disabled {
+    background: url(${rightBtn}) center center no-repeat;
+    cursor: default;
+  }
 `
