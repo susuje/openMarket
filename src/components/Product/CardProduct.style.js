@@ -4,7 +4,7 @@ import glass from '../../assets/img/glass.jpg'
 export const Card = styled.li`
   /* width: 350px;
   height: 460px; */
-
+  cursor: pointer;
   border-radius: 1rem;
   padding: 1rem 1rem 1.5rem 1rem;
   box-shadow: rgba(60, 64, 67, 0.1) 0px 1px 2px 0px,

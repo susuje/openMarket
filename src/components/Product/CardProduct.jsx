@@ -4,9 +4,9 @@ import * as S from './CardProduct.style'
 //import glass from '../../assets/img/glass.jpg'
 import cartIcon from '../../assets/icon/large.svg'
 
-export default function CardProduct({ product }) {
+export default function CardProduct({ product, onClick }) {
   return (
-    <S.Card>
+    <S.Card onClick={onClick}>
       <S.SellerName>{product.store_name}</S.SellerName>
       <S.ImgContainer $image={product.image}></S.ImgContainer>
       <S.ProductName>{product.product_name}</S.ProductName>

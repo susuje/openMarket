@@ -13,28 +13,40 @@ import { useParams } from 'react-router-dom'
 import { getProductDetail } from '../../api/ProductApi'
 
 export default function ProductDetail() {
+  //스크롤 항상 맨위에 있게해야함
   const { product_id } = useParams()
+  const [productDetail, setProductDetail] = useState({})
 
   useEffect(() => {
-    // getMyInfoAPI(token).then(data => {
-    //   setMyProfileImg(data.user.image) //프로필 사진 가져오기
-    // })
-    // getPostDetailAPI(postId, token).then(data => {
-    //   setPostData(data) //postData는 지금 {post: 어쩌구..}, post =postData.post
-    // })
+    getProductDetail(product_id).then(data => {
+      setProductDetail(data)
+    })
   }, [])
   return (
     <>
       <TopNavBar />
       <S.Container>
-        <S.Img src={sampleImg} />
+        <S.Img src={productDetail.image} />
         <S.InfoWrapper>
-          <p>Claire_LeMarket</p>
-          <S.ProductName>14인치 기내용 어린이 캐리어 - 블루</S.ProductName>
+          <p>{productDetail.store_name}</p>
+          <S.ProductName>{productDetail.product_name}</S.ProductName>
           <p className="won">
-            <S.Price>85,000</S.Price>원
+            <S.Price>
+              {productDetail.price !== undefined && productDetail.price !== null
+                ? productDetail.price.toLocaleString()
+                : ''}
+            </S.Price>
+            원
           </p>
-          <p className="ship">택배배송 / 무료배송</p>
+          <p className="ship">
+            {productDetail.shipping_method === 'PARCEL' ? '택배' : '직접'}배송 /
+            {productDetail.shipping_fee !== undefined &&
+            productDetail.shipping_fee !== null
+              ? productDetail.shipping_fee === 0
+                ? ' 무료배송'
+                : ` 배송비 ${productDetail.shipping_fee.toLocaleString()} 원`
+              : ''}
+          </p>
           <S.Div>
             <AmountBtn />
           </S.Div>
