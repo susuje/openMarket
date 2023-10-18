@@ -104,13 +104,13 @@ export const Btn = styled.button`
 `
 
 export const Content = styled.div`
-  background-color: #f2f2f2;
+  //background-color: #f2f2f2;
   max-width: 1280px;
   height: 40rem;
   margin: 0 auto;
-  text-align: center;
-  line-height: 40rem;
-  color: var(--grey-border);
-  font-size: 36px;
+  // text-align: center;
+  //line-height: 40rem;
+  //color: var(--grey-border);
+  font-size: 24px;
   margin-bottom: 140px;
 `

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as S from './AmountBtn.style'
 
 export default function AmountBtn() {

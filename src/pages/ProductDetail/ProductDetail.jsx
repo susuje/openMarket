@@ -69,7 +69,7 @@ export default function ProductDetail() {
         </S.InfoWrapper>
       </S.Container>
       <DetailTab />
-      <S.Content>제품상세</S.Content>
+      <S.Content>{productDetail.product_info}</S.Content>
       <Footer />
     </>
   )

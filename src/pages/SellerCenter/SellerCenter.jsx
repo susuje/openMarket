@@ -1,23 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as S from './SellerCenter.style'
-import { useNavigate } from 'react-router-dom'
-import productUploadBtn from '../../assets/icon/productUploadBtn.svg'
 
+import { useNavigate } from 'react-router-dom'
+import { getSellerProducts } from '../../api/ProductApi'
+import { useRecoilValue } from 'recoil'
+import { userTokenState } from '../../atoms/Atoms'
+
+import productUploadBtn from '../../assets/icon/productUploadBtn.svg'
 import CenterTopNav from '../../components/TopNav/CenterTopNav'
 import MenuTab from '../../components/SellerCenter/MenuTab'
 import ProductListBox from '../../components/SellerCenter/ProductListBox'
 import Footer from '../../components/Footer/Footer'
+import Modal from '../../components/Modal/Modal'
 
 export default function SellerCenter() {
+  const token = useRecoilValue(userTokenState)
+  const [productList, setProductList] = useState([])
+
+  useEffect(() => {
+    getSellerProducts(token).then(data => {
+      setProductList(data.results)
+    })
+  }, [productList])
   const navigate = useNavigate()
   return (
     <>
+      <Modal />
       <CenterTopNav />
       <S.Wrapper>
         <S.Container>
           <S.Flex>
             <S.H1>
-              대시보드 <span>Kurong Shop</span>
+              대시보드 <span>{productList[0]?.store_name || ''}</span>
             </S.H1>
             <button onClick={() => navigate('/productUpload')}>
               <img src={productUploadBtn} alt="상품 업로드 버튼" />
@@ -25,7 +39,7 @@ export default function SellerCenter() {
           </S.Flex>
           <S.FlexDiv>
             <MenuTab />
-            <ProductListBox />
+            <ProductListBox productList={productList} />
           </S.FlexDiv>
         </S.Container>
       </S.Wrapper>

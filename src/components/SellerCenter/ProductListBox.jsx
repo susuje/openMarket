@@ -3,7 +3,7 @@ import React from 'react'
 import * as S from './ProductListBox.style'
 import ProductCard from './ProductCard'
 
-export default function ProductListBox() {
+export default function ProductListBox({ productList }) {
   return (
     <S.Container>
       <S.InfoBar>
@@ -13,7 +13,9 @@ export default function ProductListBox() {
         <p>삭제</p>
       </S.InfoBar>
       <S.ProductList>
-        <ProductCard />
+        {productList.map(product => (
+          <ProductCard key={product.product_id} product={product} />
+        ))}
       </S.ProductList>
     </S.Container>
   )
