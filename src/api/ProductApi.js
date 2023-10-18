@@ -8,6 +8,15 @@ export const getAllProducts = async pageNum => {
 }
 
 ////3.1.2) 판매자 상품 불러오기(GET)
+export const getSellerProducts = async token => {
+  const config = {
+    headers: {
+      Authorization: `JWT ${token}`,
+    },
+  }
+  const result = await BaseInstance.get('/seller/', config) //get 이니까 data를 안보내도된다
+  return result.data
+}
 
 //3.2 상품 등록하기(POST)
 export const uploadProduct = async (token, data) => {
@@ -24,5 +33,17 @@ export const uploadProduct = async (token, data) => {
 //3.3 상품 디테일(GET)
 export const getProductDetail = async product_id => {
   const result = await BaseInstance.get(`/products/${product_id}`)
+  return result.data
+}
+//3.4 상품 수정하기(PUT)
+
+//3.5 상품 삭제하기(DELETE)
+export const deleteProduct = async (token, product_id) => {
+  const config = {
+    headers: {
+      Authorization: `JWT ${token}`,
+    },
+  }
+  const result = await BaseInstance.delete(`/products/${product_id}`, config)
   return result.data
 }
