@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import { userTokenState } from '../../atoms/Atoms'
+import { product_id, userTokenState } from '../../atoms/Atoms'
 
 import * as S from './ProductUpload.style'
 
@@ -11,17 +11,19 @@ import CenterTopNav from '../../components/TopNav/CenterTopNav'
 import NumberInput from '../../components/Product/NumberInput'
 import Footer from '../../components/Footer/Footer'
 
-import { uploadProduct } from '../../api/ProductApi'
+import { uploadProduct, getProductDetail } from '../../api/ProductApi'
 
 export default function ProductUpload() {
   const navigate = useNavigate()
   const [parcelClicked, setParcelClicked] = useState(true)
   const [deliveryClicked, setDeliveryClicked] = useState(false)
-  const [uploadImage, setUploadImage] = useState(null)
+  //const [uploadImage, setUploadImage] = useState(null)
   const [previewImage, setPreviewImage] = useState(null)
   const [isSavedDisabled, setIsSavedDisabled] = useState(true)
   const imageInput = useRef(null)
 
+  const UpdateProductId = useRecoilValue(product_id) //저장을 누르면 빈문자열이되도록
+  const [modifyProduct, setModifyProduct] = useState({})
   const token = useRecoilValue(userTokenState)
 
   //react-hook-form
@@ -36,13 +38,29 @@ export default function ProductUpload() {
 
   useEffect(() => {
     setValue('shipping_method', 'PARCEL')
+
+    // 상품 수정시
+    if (UpdateProductId) {
+      getProductDetail(UpdateProductId).then(data => {
+        setModifyProduct(data)
+        //console.log(modifyProduct, '수정상품')
+        setPreviewImage(data.image)
+        setValue('image', data.image)
+        setValue('product_name', data.product_name)
+        setValue('shipping_method', data.shipping_method)
+        setValue('price', data.price)
+        setValue('product_info', data.product_info)
+        setValue('stock', data.stock)
+        setValue('shipping_fee', data.shipping_fee.toString())
+      })
+    }
   }, [])
 
   const { image } = getValues()
   const All = watch()
   useEffect(() => {
     const allInputFilled = Object.values(All).every(el => Boolean(el))
-
+    console.log(allInputFilled)
     if (allInputFilled) {
       setIsSavedDisabled(false)
     } else {
@@ -102,7 +120,7 @@ export default function ProductUpload() {
     }
   )
 
-  //회원가입버튼 submit // 9.22 이제 이부분해얗ㅁ
+  //상품 업로드 또는 수정 submit - 10.21 해야함
   const onSubmit = data => {
     //shipping 또는 image가 빈문자열이면, 예외처리해줘야함
 
@@ -162,6 +180,9 @@ export default function ProductUpload() {
                       {...register('product_name', {
                         required: '* 상품명은 필수 입력입니다.',
                       })}
+                      defaultValue={
+                        UpdateProductId ? modifyProduct.product_name : ''
+                      }
                     />
                     <small>0/30</small>
                   </S.InputBox>
@@ -176,6 +197,7 @@ export default function ProductUpload() {
                       register={register('price', {
                         required: '* 판매가는 필수 입력입니다.',
                       })}
+                      defaultValue={modifyProduct ? modifyProduct.price : ''}
                     />
                   </S.InputBox>
                   <S.InputBox>
@@ -210,6 +232,9 @@ export default function ProductUpload() {
                       register={register('shipping_fee', {
                         required: '* 배송비는 필수 입력입니다.',
                       })}
+                      defaultValue={
+                        modifyProduct ? modifyProduct.shipping_fee : ''
+                      }
                     />
                   </S.InputBox>
                   <S.InputBox>
@@ -223,6 +248,7 @@ export default function ProductUpload() {
                       register={register('stock', {
                         required: '* 재고는 필수 입력입니다.',
                       })}
+                      defaultValue={modifyProduct ? modifyProduct.stock : ''}
                     />
                   </S.InputBox>
                 </S.ProductInfo>
@@ -236,6 +262,7 @@ export default function ProductUpload() {
                   {...register('product_info', {
                     required: '* 상세정보는 필수 입력입니다.',
                   })}
+                  defaultValue={modifyProduct ? modifyProduct.product_info : ''}
                 ></textarea>
               </S.ProductDetail>
               <S.Btns>

@@ -26,3 +26,10 @@ export const myUserName = atom({
   default: '',
   effects_UNSTABLE: [persistAtom],
 })
+
+// seller 상품 수정 - 상품ID
+export const product_id = atom({
+  key: 'product_id',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+})

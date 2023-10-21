@@ -3,18 +3,19 @@ import * as S from './SellerCenter.style'
 
 import { useNavigate } from 'react-router-dom'
 import { getSellerProducts } from '../../api/ProductApi'
-import { useRecoilValue } from 'recoil'
-import { userTokenState } from '../../atoms/Atoms'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { userTokenState, product_id } from '../../atoms/Atoms'
 
 import productUploadBtn from '../../assets/icon/productUploadBtn.svg'
 import CenterTopNav from '../../components/TopNav/CenterTopNav'
 import MenuTab from '../../components/SellerCenter/MenuTab'
 import ProductListBox from '../../components/SellerCenter/ProductListBox'
 import Footer from '../../components/Footer/Footer'
-import Modal from '../../components/Modal/Modal'
 
 export default function SellerCenter() {
+  //상품업로드 버튼누르면 product_id 빈문자열되게
   const token = useRecoilValue(userTokenState)
+  const setProductId = useSetRecoilState(product_id)
   const [productList, setProductList] = useState([])
 
   useEffect(() => {
@@ -25,7 +26,6 @@ export default function SellerCenter() {
   const navigate = useNavigate()
   return (
     <>
-      <Modal />
       <CenterTopNav />
       <S.Wrapper>
         <S.Container>
@@ -33,7 +33,12 @@ export default function SellerCenter() {
             <S.H1>
               대시보드 <span>{productList[0]?.store_name || ''}</span>
             </S.H1>
-            <button onClick={() => navigate('/productUpload')}>
+            <button
+              onClick={() => {
+                navigate('/productUpload')
+                setProductId('')
+              }}
+            >
               <img src={productUploadBtn} alt="상품 업로드 버튼" />
             </button>
           </S.Flex>
