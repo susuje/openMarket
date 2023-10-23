@@ -65,7 +65,7 @@ export default function TopNavBar({ userType }) {
                 <button>마이페이지</button>
               </li>
               {userType === 'BUYER' ? (
-                <li className="second">
+                <li className="second" onClick={() => navigate('/cart')}>
                   <button>장바구니</button>
                 </li>
               ) : (

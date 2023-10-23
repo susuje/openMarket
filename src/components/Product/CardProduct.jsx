@@ -4,7 +4,31 @@ import * as S from './CardProduct.style'
 //import glass from '../../assets/img/glass.jpg'
 import cartIcon from '../../assets/icon/large.svg'
 
-export default function CardProduct({ product, onClick }) {
+import { putCartProduct } from '../../api/cartApi'
+import { useRecoilValue } from 'recoil'
+import { userTokenState } from '../../atoms/Atoms'
+
+export default function CardProduct({ product, onClick, userType }) {
+  const token = useRecoilValue(userTokenState)
+  //Buyer만 가능하게! ==> 나중에 수정하기
+  const handleClickCart = () => {
+    const data = {
+      product_id: product.product_id,
+      quantity: 1,
+      check: true,
+    }
+    console.log(data)
+
+    putCartProduct(token, data)
+      .then(data => {
+        console.log(data)
+        window.alert('장바구니에 담겼어용')
+      })
+      .catch(error => {
+        window.alert(error.response.data.FAIL_message) // 실패
+      })
+  }
+
   return (
     <S.Card onClick={onClick}>
       <S.SellerName>{product.store_name}</S.SellerName>
@@ -15,7 +39,14 @@ export default function CardProduct({ product, onClick }) {
         <span>원</span>
       </S.ProductPrice>
       <S.CartBtn>
-        <img src={cartIcon} alt="장바구니 아이콘" />
+        <img
+          src={cartIcon}
+          alt="장바구니 아이콘"
+          onClick={e => {
+            e.stopPropagation() //없으면 S.Card onClick발동!
+            handleClickCart()
+          }}
+        />
       </S.CartBtn>
     </S.Card>
   )

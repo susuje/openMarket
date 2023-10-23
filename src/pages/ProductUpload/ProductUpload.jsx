@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { product_id, userTokenState } from '../../atoms/Atoms'
 
 import * as S from './ProductUpload.style'
@@ -11,7 +11,11 @@ import CenterTopNav from '../../components/TopNav/CenterTopNav'
 import NumberInput from '../../components/Product/NumberInput'
 import Footer from '../../components/Footer/Footer'
 
-import { uploadProduct, getProductDetail } from '../../api/ProductApi'
+import {
+  uploadProduct,
+  getProductDetail,
+  modifyProductDetail,
+} from '../../api/ProductApi'
 
 export default function ProductUpload() {
   const navigate = useNavigate()
@@ -23,6 +27,7 @@ export default function ProductUpload() {
   const imageInput = useRef(null)
 
   const UpdateProductId = useRecoilValue(product_id) //저장을 누르면 빈문자열이되도록
+  const setProductId = useSetRecoilState(product_id)
   const [modifyProduct, setModifyProduct] = useState({})
   const token = useRecoilValue(userTokenState)
 
@@ -45,7 +50,7 @@ export default function ProductUpload() {
         setModifyProduct(data)
         //console.log(modifyProduct, '수정상품')
         setPreviewImage(data.image)
-        setValue('image', data.image)
+        // setValue('image', data.image)
         setValue('product_name', data.product_name)
         setValue('shipping_method', data.shipping_method)
         setValue('price', data.price)
@@ -60,7 +65,7 @@ export default function ProductUpload() {
   const All = watch()
   useEffect(() => {
     const allInputFilled = Object.values(All).every(el => Boolean(el))
-    console.log(allInputFilled)
+    console.log(allInputFilled, Object.values(All))
     if (allInputFilled) {
       setIsSavedDisabled(false)
     } else {
@@ -120,19 +125,39 @@ export default function ProductUpload() {
     }
   )
 
+  const ModifyProductMutation = useMutation(
+    ({ token, UpdateProductId, ...data }) =>
+      modifyProductDetail(token, UpdateProductId, data),
+    {
+      onSuccess(data) {
+        window.alert('상품수정 성공')
+        setProductId('')
+        navigate(`/products/${UpdateProductId}`)
+        console.log(data)
+      },
+      onError(error) {
+        console.log(error)
+      },
+    }
+  )
+
   //상품 업로드 또는 수정 submit - 10.21 해야함
   const onSubmit = data => {
-    //shipping 또는 image가 빈문자열이면, 예외처리해줘야함
-
+    //상품 수정할때랑 업로드할떄 달라야함.  UpdateProductId 있으면 수정API 없으면 밑에코드대로.
     const productData = {
       ...data,
       price: parseInt(data.price, 10),
       shipping_fee: parseInt(data.shipping_fee, 10),
     }
-
     console.log(productData)
 
-    UploadProductMutation.mutate({ token, ...productData })
+    if (UpdateProductId) {
+      //수정
+      ModifyProductMutation.mutate({ token, UpdateProductId, ...productData })
+    } else {
+      //업로드
+      UploadProductMutation.mutate({ token, ...productData })
+    }
   }
 
   return (

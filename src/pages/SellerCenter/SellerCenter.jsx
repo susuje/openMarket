@@ -35,8 +35,8 @@ export default function SellerCenter() {
             </S.H1>
             <button
               onClick={() => {
-                navigate('/productUpload')
                 setProductId('')
+                navigate('/productUpload')
               }}
             >
               <img src={productUploadBtn} alt="상품 업로드 버튼" />

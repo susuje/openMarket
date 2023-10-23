@@ -45,6 +45,7 @@ export default function Home() {
               onClick={() => {
                 navigate(`/products/${product.product_id}`)
               }}
+              userType={userType}
             />
           ))}
         </S.ProductLists>
