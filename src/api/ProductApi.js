@@ -36,6 +36,20 @@ export const getProductDetail = async product_id => {
   return result.data
 }
 //3.4 상품 수정하기(PUT)
+export const modifyProductDetail = async (token, UpdateProductId, data) => {
+  const config = {
+    headers: {
+      Authorization: `JWT ${token}`,
+      'Content-Type': 'multipart/form-data',
+    },
+  }
+  const result = await BaseInstance.patch(
+    `/products/${UpdateProductId}/`,
+    data,
+    config
+  )
+  return result.data
+}
 
 //3.5 상품 삭제하기(DELETE)
 export const deleteProduct = async (token, product_id) => {
