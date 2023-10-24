@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import abledMinus from '../../assets/icon/icon-abled-minus.svg'
+import abledPlus from '../../assets/icon/icon-abled-plus.svg'
 import minus from '../../assets/icon/icon-minus.svg'
 import plus from '../../assets/icon/icon-plus.svg'
 
@@ -14,11 +16,26 @@ export const CountBtn = styled.button`
   border: 1px solid var(--grey-border);
   border-right: none;
   border-radius: 5px 0px 0px 5px;
-  background: url(${minus}) no-repeat center/20px 20px;
+  background: url(${props => (props.disabled ? minus : abledMinus)}) no-repeat
+    center/20px 20px;
+  cursor: ${props => (props.disabled ? 'default' : 'cursor')};
+
   &.right {
     border-right: 1px solid var(--grey-border);
     border-radius: 0px 5px 5px 0px;
-    background: url(${plus}) no-repeat center/20px 20px;
+    background: url(${props => (props.disabled ? plus : abledPlus)}) no-repeat
+      center/20px 20px;
+  }
+
+  span.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
   }
 `
 

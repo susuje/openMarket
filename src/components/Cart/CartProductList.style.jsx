@@ -61,7 +61,14 @@ export const ProductName = styled.h4`
   font-size: 18px;
   margin-bottom: 10px;
 `
-
+export const CountDiv = styled.div`
+  p {
+    text-align: right;
+    color: var(--light-grey);
+    margin-top: 10px;
+    font-size: 14px;
+  }
+`
 export const FlexDiv = styled.div`
   display: flex;
   flex-direction: column;

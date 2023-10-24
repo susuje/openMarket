@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as S from './TotalPriceBar.style'
 
 import plus from '../../assets/icon/price-plus.svg'
 import minus from '../../assets/icon/price-minus.svg'
 
-export default function TotalPriceBar() {
+export default function TotalPriceBar(totalPrice) {
   return (
     <S.Container>
       <S.CalculDiv>
@@ -30,7 +30,7 @@ export default function TotalPriceBar() {
       <S.TotalPrice>
         <p>결제 예정 금액</p>
         <p>
-          <span>46,500</span>원
+          <span>{totalPrice?.totalPrice}</span>원
         </p>
       </S.TotalPrice>
     </S.Container>
