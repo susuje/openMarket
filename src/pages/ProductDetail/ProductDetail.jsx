@@ -9,11 +9,13 @@ import Footer from '../../components/Footer/Footer'
 import sampleImg from '../../assets/img/voyage.jpg'
 import AmountBtn from '../../components/Product/AmountBtn'
 import { useParams } from 'react-router-dom'
-
+import { useRecoilValue } from 'recoil'
+import { userTypeState } from '../../atoms/Atoms'
 import { getProductDetail } from '../../api/ProductApi'
 
 export default function ProductDetail() {
   //스크롤 항상 맨위에 있게해야함
+  const userType = useRecoilValue(userTypeState)
   const { product_id } = useParams()
   const [productDetail, setProductDetail] = useState({})
 
@@ -24,7 +26,7 @@ export default function ProductDetail() {
   }, [])
   return (
     <>
-      <TopNavBar />
+      <TopNavBar userType={userType} />
       <S.Container>
         <S.Img src={productDetail.image} />
         <S.InfoWrapper>
