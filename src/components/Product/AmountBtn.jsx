@@ -10,6 +10,8 @@ export default function AmountBtn({
   token,
   cartItemId,
   productId,
+  setTotalPrice,
+  price,
 }) {
   const handleAmountClick = e => {
     const data = {
@@ -18,9 +20,13 @@ export default function AmountBtn({
       is_active: true,
     }
 
-    e.target.children[0].innerHTML === '+'
-      ? (data.quantity = updatedQuantity + 1)
-      : (data.quantity = updatedQuantity - 1)
+    if (e.target.children[0].innerHTML === '+') {
+      data.quantity = updatedQuantity + 1
+      setTotalPrice(total => total + price)
+    } else {
+      data.quantity = updatedQuantity - 1
+      setTotalPrice(total => total - price)
+    }
 
     modifyCartQuantity(token, cartItemId, data)
       .then(data => {

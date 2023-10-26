@@ -16,6 +16,7 @@ export const Article = styled.article`
   border-radius: 10px;
   border: 2px solid #e0e0e0;
   position: relative;
+  margin-bottom: 10px;
 `
 export const Wrapper = styled.div`
   display: flex;
@@ -28,8 +29,13 @@ export const Wrapper = styled.div`
 export const CheckLabel = styled.label`
   width: 20px;
   height: 20px;
-  background: url(${checked}) no-repeat center/20px 20px;
   margin-right: 40px;
+  &.checked {
+    background: url(${checked}) no-repeat center/20px 20px;
+  }
+  &.unchecked {
+    background: url(${unChecked}) no-repeat center/20px 20px;
+  }
 `
 export const CheckInput = styled.input`
   margin: 0;
@@ -39,6 +45,7 @@ export const CheckInput = styled.input`
 export const ProductImg = styled.img`
   width: 160px;
   height: 160px;
+  object-fit: cover;
   border-radius: 10px;
   margin-right: 36px;
 `

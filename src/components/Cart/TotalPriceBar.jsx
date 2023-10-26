@@ -4,13 +4,14 @@ import * as S from './TotalPriceBar.style'
 import plus from '../../assets/icon/price-plus.svg'
 import minus from '../../assets/icon/price-minus.svg'
 
-export default function TotalPriceBar(totalPrice) {
+export default function TotalPriceBar({ totalPrice, totalFee }) {
+  console.log(totalFee)
   return (
     <S.Container>
       <S.CalculDiv>
         <p>총 상품금액</p>
         <p>
-          <span>46,500</span>원
+          <span>{totalPrice.toLocaleString()}</span>원
         </p>
       </S.CalculDiv>
       <S.Icon src={minus} />
@@ -24,13 +25,13 @@ export default function TotalPriceBar(totalPrice) {
       <S.CalculDiv>
         <p>배송비</p>
         <p>
-          <span>2,500</span>원
+          <span>{totalFee.toLocaleString()}</span>원
         </p>
       </S.CalculDiv>
       <S.TotalPrice>
         <p>결제 예정 금액</p>
         <p>
-          <span>{totalPrice?.totalPrice}</span>원
+          <span>{(totalPrice + totalFee).toLocaleString()}</span>원
         </p>
       </S.TotalPrice>
     </S.Container>

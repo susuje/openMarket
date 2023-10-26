@@ -15,10 +15,19 @@ import { userTokenState } from '../../atoms/Atoms'
 export default function Cart() {
   const token = useRecoilValue(userTokenState)
   const [myCartList, setMyCartList] = useState([])
+  const [checkedProducts, setCheckedProducts] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalFee, setTotalFee] = useState(0)
+
+  const fetchCartList = () => {
+    getMyCart(token).then(data => {
+      setMyCartList(data.results)
+      //console.log(data.results)
+    })
+  }
+
   useEffect(() => {
-    getMyCart(token).then(data => setMyCartList(data.results))
+    fetchCartList()
   }, [])
 
   return (
@@ -36,10 +45,13 @@ export default function Cart() {
             token={token}
             setTotalPrice={setTotalPrice}
             setTotalFee={setTotalFee}
+            fetchCartList={fetchCartList}
+            setCheckedProducts={setCheckedProducts}
+            checkedProducts={checkedProducts}
           />
         ))}
-        <DeleteProductBtn />
-        <TotalPriceBar totalPrice={totalPrice} setTotalPrice={setTotalPrice} />
+        <DeleteProductBtn checkedProducts={checkedProducts} />
+        <TotalPriceBar totalPrice={totalPrice} totalFee={totalFee} />
       </S.Container>
       <Footer />
     </>

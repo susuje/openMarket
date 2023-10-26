@@ -22,6 +22,7 @@ export default function SellerCenter() {
     getSellerProducts(token).then(data => {
       setProductList(data.results)
     })
+    console.log('항')
   }, [productList])
   const navigate = useNavigate()
   return (

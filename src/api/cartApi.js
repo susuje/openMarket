@@ -46,3 +46,12 @@ export const modifyCartQuantity = async (token, cartItemId, data) => {
 //4.4 장바구니 전부 삭제하기(DELETE)
 
 //4.4 장바구니 개별 삭제하기(DELETE)
+export const deleteCartProduct = async (token, cartItemId) => {
+  const config = {
+    headers: {
+      Authorization: `JWT ${token}`,
+    },
+  }
+  const result = await BaseInstance.delete(`/cart/${cartItemId}`, config)
+  return result.data
+}
