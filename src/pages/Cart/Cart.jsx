@@ -18,11 +18,11 @@ export default function Cart() {
   const [checkedProducts, setCheckedProducts] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalFee, setTotalFee] = useState(0)
-
+  const [allClick, setAllClick] = useState(false)
   const fetchCartList = () => {
     getMyCart(token).then(data => {
       setMyCartList(data.results)
-      //console.log(data.results)
+      //  console.log(data.results)
     })
   }
 
@@ -35,7 +35,14 @@ export default function Cart() {
       <TopNavBar />
       <S.H1>장바구니</S.H1>
       <S.Container>
-        <CartInfoBar />
+        <CartInfoBar
+          setCheckedProducts={setCheckedProducts}
+          checkedProducts={checkedProducts}
+          myCartList={myCartList}
+          setTotalPrice={setTotalPrice}
+          setTotalFee={setTotalFee}
+          setAllClick={setAllClick}
+        />
         {myCartList.map(product => (
           <ProductList
             key={product.product_id}
@@ -48,9 +55,17 @@ export default function Cart() {
             fetchCartList={fetchCartList}
             setCheckedProducts={setCheckedProducts}
             checkedProducts={checkedProducts}
+            allClick={allClick}
+            setAllClick={setAllClick}
           />
         ))}
-        <DeleteProductBtn checkedProducts={checkedProducts} />
+        <DeleteProductBtn
+          checkedProducts={checkedProducts}
+          fetchCartList={fetchCartList}
+          setCheckedProducts={setCheckedProducts}
+          setTotalPrice={setTotalPrice}
+          setTotalFee={setTotalFee}
+        />
         <TotalPriceBar totalPrice={totalPrice} totalFee={totalFee} />
       </S.Container>
       <Footer />

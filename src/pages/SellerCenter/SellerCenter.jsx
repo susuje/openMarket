@@ -24,6 +24,7 @@ export default function SellerCenter() {
     })
     console.log('항')
   }, [productList])
+  //무한 루프중, cart페이지처럼 fetchData 함수 만들어서 바꾸기.
   const navigate = useNavigate()
   return (
     <>

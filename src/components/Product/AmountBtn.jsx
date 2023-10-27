@@ -12,6 +12,7 @@ export default function AmountBtn({
   productId,
   setTotalPrice,
   price,
+  checkedProducts,
 }) {
   const handleAmountClick = e => {
     const data = {
@@ -22,10 +23,15 @@ export default function AmountBtn({
 
     if (e.target.children[0].innerHTML === '+') {
       data.quantity = updatedQuantity + 1
-      setTotalPrice(total => total + price)
+      console.log('수량수정중')
+      if (checkedProducts.includes(cartItemId)) {
+        setTotalPrice(total => total + price)
+      }
     } else {
       data.quantity = updatedQuantity - 1
-      setTotalPrice(total => total - price)
+      if (checkedProducts.includes(cartItemId)) {
+        setTotalPrice(total => total - price)
+      }
     }
 
     modifyCartQuantity(token, cartItemId, data)

@@ -24,7 +24,11 @@ export default function ProductCard({ product }) {
   return (
     <>
       {isModalOpen ? (
-        <Modal productId={product.product_id} setIsModalOpen={setIsModalOpen} />
+        <Modal
+          productId={product.product_id}
+          setIsModalOpen={setIsModalOpen}
+          content={'상품'}
+        />
       ) : null}
       <S.Wrapper>
         <S.ProductInfo>

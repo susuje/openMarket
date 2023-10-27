@@ -5,7 +5,6 @@ import plus from '../../assets/icon/price-plus.svg'
 import minus from '../../assets/icon/price-minus.svg'
 
 export default function TotalPriceBar({ totalPrice, totalFee }) {
-  console.log(totalFee)
   return (
     <S.Container>
       <S.CalculDiv>

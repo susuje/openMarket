@@ -15,19 +15,35 @@ export default function Modal({
   shipping,
   setTotalFee,
   setTotalPrice,
+  setCheckedProducts,
+  checkedProducts,
+  content,
 }) {
   const token = useRecoilValue(userTokenState)
   const userType = useRecoilValue(userTypeState)
 
   const handleDelete = () => {
     if (userType === 'BUYER') {
-      deleteCartProduct(token, cartItemId).then(data => {
-        console.log(data)
-        //window.alert('삭제됨')
-        fetchCartList() //다시 내 카트 업데이트! 방금 삭제한 아이템은 없어짐.
-        setTotalPrice(total => total - price) // 가격 업데이트
-        setTotalFee(total => total - shipping) // 배송비 업데이트
-      })
+      if (content === '상품') {
+        deleteCartProduct(token, cartItemId).then(data => {
+          console.log(data)
+          //window.alert('삭제됨')
+          fetchCartList() //다시 내 카트 업데이트! 방금 삭제한 아이템은 없어짐.
+          setCheckedProducts(checkedProducts.filter(x => x !== cartItemId))
+          setTotalPrice(total => total - price) // 가격 업데이트
+          setTotalFee(total => total - shipping) // 배송비 업데이트
+        })
+      } else {
+        checkedProducts.forEach(x => {
+          deleteCartProduct(token, x).then(data => {
+            console.log(data)
+            fetchCartList()
+            setCheckedProducts(checkedProducts.filter(el => el !== x))
+            setTotalPrice(0)
+            setTotalFee(0)
+          })
+        })
+      }
     } else {
       //판매자일때
       deleteProduct(token, productId)
@@ -43,7 +59,7 @@ export default function Modal({
             setIsModalOpen(false)
           }}
         />
-        <S.P>상품을 삭제하시겠습니까?</S.P>
+        <S.P>{content}을 삭제하시겠습니까?</S.P>
         <S.Btn
           className="cancle"
           onClick={() => {

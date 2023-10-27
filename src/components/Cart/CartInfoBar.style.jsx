@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import unchecked from '../../assets/icon/check-box.svg'
+import checked from '../../assets/icon/check-box-Fill.svg'
+
 export const Container = styled.div`
   padding: 20px 0px 20px 0px;
   border-radius: 10px;
@@ -17,8 +19,13 @@ export const CheckLabel = styled.label`
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: url(${unchecked}) no-repeat center/20px 20px;
   margin-right: 15rem;
+  &.checked {
+    background: url(${checked}) no-repeat center/20px 20px;
+  }
+  &.unchecked {
+    background: url(${unchecked}) no-repeat center/20px 20px;
+  }
 `
 export const CheckInput = styled.input`
   margin: 0;
