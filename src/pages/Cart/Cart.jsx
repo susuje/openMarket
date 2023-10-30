@@ -10,10 +10,11 @@ import TotalPriceBar from '../../components/Cart/TotalPriceBar'
 
 import { useRecoilValue } from 'recoil'
 import { getMyCart } from '../../api/cartApi'
-import { userTokenState } from '../../atoms/Atoms'
+import { userTokenState, userTypeState } from '../../atoms/Atoms'
 
 export default function Cart() {
   const token = useRecoilValue(userTokenState)
+  const userType = useRecoilValue(userTypeState)
   const [myCartList, setMyCartList] = useState([])
   const [checkedProducts, setCheckedProducts] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
@@ -32,7 +33,7 @@ export default function Cart() {
 
   return (
     <>
-      <TopNavBar />
+      <TopNavBar userType={userType} />
       <S.H1>장바구니</S.H1>
       <S.Container>
         <CartInfoBar

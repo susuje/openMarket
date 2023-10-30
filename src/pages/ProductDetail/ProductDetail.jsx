@@ -1,23 +1,45 @@
 import React, { useEffect, useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
 
 import * as S from './ProductDetail.style'
 import TopNavBar from '../../components/TopNav/TopNavBar'
 import DetailTab from '../../components/Product/DetailTab'
 import Footer from '../../components/Footer/Footer'
 
-import sampleImg from '../../assets/img/voyage.jpg'
-import AmountBtn from '../../components/Product/AmountBtn'
+//import sampleImg from '../../assets/img/voyage.jpg'
+import DetailAmountBtn from '../../components/Product/DetailAmountBtn'
 import { useParams } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import { userTypeState } from '../../atoms/Atoms'
+import { userTypeState, userTokenState } from '../../atoms/Atoms'
 import { getProductDetail } from '../../api/ProductApi'
+import { putCartProduct } from '../../api/cartApi'
 
 export default function ProductDetail() {
   //스크롤 항상 맨위에 있게해야함
+  //DetailAmountBtn 하기 10-30
   const userType = useRecoilValue(userTypeState)
+  const token = useRecoilValue(userTokenState)
   const { product_id } = useParams()
   const [productDetail, setProductDetail] = useState({})
+  const [count, setCount] = useState(1)
+
+  const handleClickCart = () => {
+    console.log('클릭')
+    const data = {
+      product_id: product_id,
+      quantity: count,
+      check: true,
+    }
+    console.log(data)
+
+    putCartProduct(token, data)
+      .then(data => {
+        console.log(data)
+        window.alert('장바구니에 담겼어용')
+      })
+      .catch(error => {
+        window.alert(error.response.data.FAIL_message) // 실패
+      })
+  }
 
   useEffect(() => {
     getProductDetail(product_id).then(data => {
@@ -50,13 +72,13 @@ export default function ProductDetail() {
               : ''}
           </p>
           <S.Div>
-            <AmountBtn />
+            <DetailAmountBtn count={count} />
           </S.Div>
           <S.TotalPriceDiv>
             <p>총 상품 금액</p>
             <div>
               <p>
-                총 수량 <span>1</span>개
+                총 수량 <span>{count}</span>개
               </p>
               <p>|</p>
               <strong>
@@ -66,7 +88,14 @@ export default function ProductDetail() {
           </S.TotalPriceDiv>
           <S.Btns>
             <S.Btn>바로 구매</S.Btn>
-            <S.Btn className="cart">장바구니</S.Btn>
+            <S.Btn
+              className="cart"
+              onClick={() => {
+                handleClickCart()
+              }}
+            >
+              장바구니
+            </S.Btn>
           </S.Btns>
         </S.InfoWrapper>
       </S.Container>

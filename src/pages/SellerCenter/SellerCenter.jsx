@@ -45,7 +45,7 @@ export default function SellerCenter() {
             </button>
           </S.Flex>
           <S.FlexDiv>
-            <MenuTab />
+            <MenuTab userType="seller" />
             <ProductListBox productList={productList} />
           </S.FlexDiv>
         </S.Container>
