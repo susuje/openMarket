@@ -6,7 +6,7 @@ export const Container = styled.div`
   max-width: 1200px;
   display: grid;
   grid-template-columns: 1fr 32px 1fr 32px 1fr 1fr;
-  margin-bottom: 300px;
+  // margin-bottom: 300px;
   padding-top: 46px;
   text-align: center;
 `

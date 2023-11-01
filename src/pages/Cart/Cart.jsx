@@ -8,11 +8,13 @@ import CartInfoBar from '../../components/Cart/CartInfoBar'
 import DeleteProductBtn from '../../components/Cart/DeleteProductBtn'
 import TotalPriceBar from '../../components/Cart/TotalPriceBar'
 
+import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { getMyCart } from '../../api/cartApi'
 import { userTokenState, userTypeState } from '../../atoms/Atoms'
 
 export default function Cart() {
+  const navigate = useNavigate()
   const token = useRecoilValue(userTokenState)
   const userType = useRecoilValue(userTypeState)
   const [myCartList, setMyCartList] = useState([])
@@ -30,7 +32,7 @@ export default function Cart() {
   useEffect(() => {
     fetchCartList()
   }, [])
-
+  //checkedProducts는 CartItemId
   return (
     <>
       <TopNavBar userType={userType} />
@@ -68,6 +70,21 @@ export default function Cart() {
           setTotalFee={setTotalFee}
         />
         <TotalPriceBar totalPrice={totalPrice} totalFee={totalFee} />
+        <S.BtnDiv>
+          <S.OrderBtn
+            onClick={() => {
+              navigate('/payment', {
+                state: {
+                  cartItemsIds: checkedProducts,
+                  product_id: [],
+                  count: [],
+                },
+              })
+            }}
+          >
+            주문 하기
+          </S.OrderBtn>
+        </S.BtnDiv>
       </S.Container>
       <Footer />
     </>

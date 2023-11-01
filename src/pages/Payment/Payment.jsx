@@ -1,11 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as S from './Payment.style'
 
-import TotalPayment from '../../components/payment/TotalPayment'
+import { useLocation } from 'react-router-dom'
 import ProductList from '../../components/payment/ProductList'
 import ShippingForm from '../../components/payment/ShippingForm'
 
+import { getMyCartDetail } from '../../api/cartApi'
+import { useRecoilValue } from 'recoil'
+import { userTokenState } from '../../atoms/Atoms'
 export default function Payment() {
+  const token = useRecoilValue(userTokenState)
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [totalFee, setTotalFee] = useState(0)
+  const location = useLocation()
+  const { product_id, count, cartItemsIds } = location.state
+  const [productId, setProductId] = useState(product_id || [])
+  const [counts, setCounts] = useState(count || [])
+
+  useEffect(() => {
+    console.log(product_id, count)
+    //바로 구매 - 한개일때 [160] [3]
+    if (cartItemsIds) {
+      //cart에서 여러개 구매할때
+      console.log(cartItemsIds)
+      cartItemsIds.map(cartItemId =>
+        getMyCartDetail(token, cartItemId).then(data => {
+          setProductId(prev => [...prev, data.product_id])
+          setCounts(prev => [...prev, data.quantity])
+        })
+      )
+    }
+  }, [])
+
   return (
     <S.Wrapper>
       <S.CartInfoBar>
@@ -16,13 +42,24 @@ export default function Payment() {
           <p>주문금액</p>
         </div>
       </S.CartInfoBar>
-      <ProductList />
-      <ProductList />
+      {productId.map(
+        (
+          product_id,
+          index //여러개일때 count index 설정해줘야함
+        ) => (
+          <ProductList
+            product_id={product_id}
+            count={counts[index]}
+            setTotalPrice={setTotalPrice}
+            setTotalFee={setTotalFee}
+          />
+        )
+      )}
       <S.TotalPrice>
         총 주문금액
-        <strong>260,000원</strong>
+        <strong>{totalPrice.toLocaleString()}원</strong>
       </S.TotalPrice>
-      <ShippingForm />
+      <ShippingForm totalPrice={totalPrice} totalFee={totalFee} />
     </S.Wrapper>
   )
 }

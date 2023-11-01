@@ -7,6 +7,8 @@ import Footer from '../../components/Footer/Footer'
 
 //import sampleImg from '../../assets/img/voyage.jpg'
 import DetailAmountBtn from '../../components/Product/DetailAmountBtn'
+
+import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { userTypeState, userTokenState } from '../../atoms/Atoms'
@@ -16,6 +18,7 @@ import { putCartProduct } from '../../api/cartApi'
 export default function ProductDetail() {
   //스크롤 항상 맨위에 있게해야함
   //DetailAmountBtn 하기 10-30
+  const navigate = useNavigate()
   const userType = useRecoilValue(userTypeState)
   const token = useRecoilValue(userTokenState)
   const { product_id } = useParams()
@@ -44,6 +47,7 @@ export default function ProductDetail() {
   useEffect(() => {
     getProductDetail(product_id).then(data => {
       setProductDetail(data)
+      console.log(data)
     })
   }, [])
   return (
@@ -72,7 +76,11 @@ export default function ProductDetail() {
               : ''}
           </p>
           <S.Div>
-            <DetailAmountBtn count={count} />
+            <DetailAmountBtn
+              count={count}
+              setCount={setCount}
+              stock={productDetail.stock}
+            />
           </S.Div>
           <S.TotalPriceDiv>
             <p>총 상품 금액</p>
@@ -82,12 +90,26 @@ export default function ProductDetail() {
               </p>
               <p>|</p>
               <strong>
-                <S.Price>17,500</S.Price>원
+                <S.Price>
+                  {(count * productDetail.price).toLocaleString()}
+                </S.Price>
+                원
               </strong>
             </div>
           </S.TotalPriceDiv>
           <S.Btns>
-            <S.Btn>바로 구매</S.Btn>
+            <S.Btn
+              onClick={() => {
+                navigate('/payment', {
+                  state: {
+                    product_id: [productDetail.product_id],
+                    count: [count],
+                  },
+                })
+              }}
+            >
+              바로 구매
+            </S.Btn>
             <S.Btn
               className="cart"
               onClick={() => {

@@ -6,7 +6,6 @@ import AmountBtn from '../Product/AmountBtn'
 import Modal from '../Modal/Modal'
 
 import { getProductDetail } from '../../api/ProductApi'
-//import { getMyCartDetail } from '../../api/cartApi'
 
 export default function CartProductList({
   productId,
@@ -53,6 +52,7 @@ export default function CartProductList({
 
   useEffect(() => {
     console.log(checkedProducts)
+
     if (allClick) {
       //console.log('allClick', checkedProducts)
       setTotalFee(total => total + productDetail.shipping_fee)

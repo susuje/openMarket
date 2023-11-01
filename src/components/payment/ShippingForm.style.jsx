@@ -15,11 +15,22 @@ export const H2 = styled.h2`
 `
 export const Info = styled.div`
   margin-top: 40px;
+  position: relative;
   h3 {
+    //display: inline-block;
     font-size: 18px;
     font-weight: 500;
     padding-bottom: 8px;
     border-bottom: 2px solid var(--grey-border);
+  }
+  button.sameInfo {
+    position: absolute;
+    top: -7px;
+    left: 169px;
+    border: 1px solid var(--light-grey);
+    border-radius: 5px;
+    padding: 6px 10px;
+    color: var(--light-grey);
   }
 `
 export const InputWrapper = styled.div`
@@ -46,6 +57,7 @@ export const InputWrapper = styled.div`
   }
   input {
     height: 40px;
+    padding-left: 10px;
     border: 1px solid var(--grey-border);
     ${({ width }) => width && `width: ${width}`}; //width가 없으면 설정x
 

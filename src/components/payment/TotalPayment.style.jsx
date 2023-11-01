@@ -61,15 +61,16 @@ export const LastDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  input {
-    display: none;
+  div {
+    display: flex;
+    align-items: center;
   }
-  label {
+  input {
     width: 16px;
     height: 16px;
-    background: url(${checked}) no-repeat left/16px 16px;
-    padding-left: 30px;
+  }
+  label {
+    padding-left: 5px;
   }
 `
 
@@ -82,4 +83,13 @@ export const Button = styled.button`
   border-radius: 5px;
   margin-top: 30px;
   margin-bottom: 4px;
+
+  &.disabled {
+    background-color: var(--grey-border);
+    cursor: default;
+  }
+  &.abled {
+    background-color: #000000;
+    cursor: pointer;
+  }
 `

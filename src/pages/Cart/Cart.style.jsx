@@ -10,3 +10,17 @@ export const H1 = styled.h1`
   text-align: center;
   margin: 50px 0;
 `
+
+export const BtnDiv = styled.div`
+  margin: 50px 0 200px 0;
+  text-align: center; //버튼 가운데로
+`
+export const OrderBtn = styled.button`
+  //display: inline-block;
+  width: 220px;
+  height: 75px;
+  background-color: black;
+  border-radius: 10px;
+  color: white;
+  font-size: 28px;
+`
