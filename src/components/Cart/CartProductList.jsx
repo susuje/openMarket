@@ -5,7 +5,9 @@ import AmountBtn from '../Product/AmountBtn'
 //import Img from '../../assets/img/cate4.png'
 import Modal from '../Modal/Modal'
 
+import { useNavigate } from 'react-router-dom'
 import { getProductDetail } from '../../api/ProductApi'
+import { modifyIsActive } from '../../api/cartApi'
 
 export default function CartProductList({
   productId,
@@ -20,6 +22,7 @@ export default function CartProductList({
   allClick,
   setAllClick,
 }) {
+  const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [productDetail, setProductDetail] = useState({})
   const [updatedQuantity, setUpdatedQuantity] = useState(quantity)
@@ -29,11 +32,25 @@ export default function CartProductList({
     //console.log(cartItemId)
     const productChecked = checkedProducts.includes(cartItemId)
     if (productChecked) {
+      //체크해제
       setCheckedProducts(checkedProducts.filter(p => p !== cartItemId))
+      modifyIsActive(token, cartItemId, {
+        // isActive (false)
+        product_id: productId,
+        quantity: updatedQuantity,
+        is_active: false,
+      })
       setTotalFee(total => total - productDetail.shipping_fee)
       setTotalPrice(total => total - productDetail.price * updatedQuantity)
     } else {
+      //체크추가
       setCheckedProducts([...checkedProducts, cartItemId])
+      modifyIsActive(token, cartItemId, {
+        // isActive (true)
+        product_id: productId,
+        quantity: updatedQuantity,
+        is_active: true,
+      })
       setTotalFee(total => total + productDetail.shipping_fee)
       setTotalPrice(total => total + productDetail.price * updatedQuantity)
     }
@@ -132,7 +149,20 @@ export default function CartProductList({
             <S.TotalPrice>
               {(productDetail.price * updatedQuantity).toLocaleString()}원
             </S.TotalPrice>
-            <S.BuyBtn>주문하기</S.BuyBtn>
+            <S.BuyBtn
+              onClick={() => {
+                navigate('/payment', {
+                  state: {
+                    product_id: [productId],
+                    count: [updatedQuantity],
+                    order_kind: 'cart_one_order',
+                    cartItemId: cartItemId,
+                  },
+                })
+              }}
+            >
+              주문하기
+            </S.BuyBtn>
           </S.FlexDiv>
         </S.Wrapper>
         <S.DeleteBtn

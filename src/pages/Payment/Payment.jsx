@@ -13,16 +13,19 @@ export default function Payment() {
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalFee, setTotalFee] = useState(0)
   const location = useLocation()
-  const { product_id, count, cartItemsIds } = location.state
+  const { product_id, count, order_kind, cartItemsIds, cartItemId } =
+    location.state
   const [productId, setProductId] = useState(product_id || [])
   const [counts, setCounts] = useState(count || [])
 
   useEffect(() => {
-    console.log(product_id, count)
+    console.log(product_id, count, '바로구매 또는 하나구매')
+
     //바로 구매 - 한개일때 [160] [3]
     if (cartItemsIds) {
       //cart에서 여러개 구매할때
-      console.log(cartItemsIds)
+      console.log(cartItemsIds, '카트아이템')
+
       cartItemsIds.map(cartItemId =>
         getMyCartDetail(token, cartItemId).then(data => {
           setProductId(prev => [...prev, data.product_id])
@@ -59,7 +62,14 @@ export default function Payment() {
         총 주문금액
         <strong>{totalPrice.toLocaleString()}원</strong>
       </S.TotalPrice>
-      <ShippingForm totalPrice={totalPrice} totalFee={totalFee} />
+      <ShippingForm
+        totalPrice={totalPrice}
+        totalFee={totalFee}
+        order_kind={order_kind}
+        product_id={product_id}
+        count={count}
+        cartItemId={cartItemId}
+      />
     </S.Wrapper>
   )
 }

@@ -55,3 +55,14 @@ export const deleteCartProduct = async (token, cartItemId) => {
   const result = await BaseInstance.delete(`/cart/${cartItemId}`, config)
   return result.data
 }
+
+// is_Active 수정
+export const modifyIsActive = async (token, cartItemId, data) => {
+  const config = {
+    headers: {
+      Authorization: `JWT ${token}`,
+    },
+  }
+  const result = await BaseInstance.put(`/cart/${cartItemId}/`, data, config)
+  return result.data
+}

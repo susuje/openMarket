@@ -104,6 +104,7 @@ export default function ProductDetail() {
                   state: {
                     product_id: [productDetail.product_id],
                     count: [count],
+                    order_kind: 'direct_order',
                   },
                 })
               }}

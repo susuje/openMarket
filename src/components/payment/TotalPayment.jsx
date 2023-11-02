@@ -1,10 +1,12 @@
 import React from 'react'
 import * as S from './TotalPayment.style'
 
-import unchecked from '../../assets/icon/unchecked-box.svg'
-import checked from '../../assets/icon/check-fill-box.svg'
-
-export default function TotalPayment({ isJoinDisabled, setCheckAgree }) {
+export default function TotalPayment({
+  isJoinDisabled,
+  setCheckAgree,
+  totalPrice,
+  totalFee,
+}) {
   return (
     <S.Wrapper>
       <S.H3>최종결제 정보</S.H3>
@@ -13,7 +15,7 @@ export default function TotalPayment({ isJoinDisabled, setCheckAgree }) {
           <S.FlexDiv>
             <p>- 상품금액</p>
             <p>
-              <span>46,500</span>원
+              <span>{totalPrice.toLocaleString()}</span>원
             </p>
           </S.FlexDiv>
           <S.FlexDiv>
@@ -25,12 +27,12 @@ export default function TotalPayment({ isJoinDisabled, setCheckAgree }) {
           <S.FlexDiv className="ship">
             <p>- 배송비</p>
             <p>
-              <span>2,500</span>원
+              <span>{totalFee.toLocaleString()}</span>원
             </p>
           </S.FlexDiv>
           <S.FlexDiv>
             <p>- 결제금액</p>
-            <strong>49,000원</strong>
+            <strong>{(totalPrice + totalFee).toLocaleString()}원</strong>
           </S.FlexDiv>
         </S.FirstDiv>
         <S.LastDiv>

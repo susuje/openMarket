@@ -2,12 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { useDaumPostcodePopup } from 'react-daum-postcode'
 import { postcodeScriptUrl } from 'react-daum-postcode/lib/loadPostcode'
 import { useForm } from 'react-hook-form'
+
+import { postOrder } from '../../api/orderApi'
+import { modifyIsActive } from '../../api/cartApi'
+import { useRecoilValue } from 'recoil'
+import { userTokenState } from '../../atoms/Atoms'
 import * as S from './ShippingForm.style'
 import TotalPayment from './TotalPayment'
 
-export default function ShippingForm() {
-  //  {errors.name && <p>{errors.name.message}</p>} 에러 메세지 className alert 부착해서 스타일링하기
-  // 결제하기(order) 기능 완성
+export default function ShippingForm({
+  totalPrice,
+  totalFee,
+  order_kind,
+  product_id,
+  count,
+  cartItemId,
+}) {
+  // phone 010으로 바꿔야함
+  const token = useRecoilValue(userTokenState)
   const [payment, setPayment] = useState('')
   const [checkAgree, setCheckAgree] = useState(false)
   const [isJoinDisabled, setIsJoinDisabled] = useState(true)
@@ -38,7 +50,7 @@ export default function ShippingForm() {
 
   const onCompletePost = data => {
     setValue('addressNum', data.zonecode)
-    setValue('address1', data.roadAddress)
+    setValue('address1', data.roadAddress + ' (' + data.buildingName + ')')
   }
   const handleClick = () => open({ onComplete: onCompletePost })
 
@@ -63,8 +75,42 @@ export default function ShippingForm() {
     setPayment(e.target.id)
   }
   const onSubmit = data => {
+    data.order_kind = order_kind
+    data.receiver_phone_number = data.myPhone1 + data.myPhone2 + data.myPhone3
+    data.address = data.address1 + ' ' + data.address2
+    data.total_price = totalPrice + totalFee
+    data.payment_method = payment
+
+    const propertiesToDelete = [
+      'name',
+      'email',
+      'address1',
+      'address2',
+      'addressNum',
+      'myPhone1',
+      'myPhone2',
+      'myPhone3',
+      'phone1',
+      'phone2',
+      'phone3',
+    ]
+    propertiesToDelete.forEach(property => {
+      delete data[property]
+    })
+    if (order_kind === 'cart_one_order' || order_kind === 'direct_order') {
+      data.product_id = product_id[0]
+      data.quantity = count[0]
+    }
+    if (order_kind === 'cart_one_order') {
+      //is_active false일 경우를 방지하기위해
+      modifyIsActive(token, cartItemId, {
+        product_id: product_id[0],
+        quantity: count[0],
+        is_active: true,
+      })
+    }
     console.log(data)
-    console.log('hi')
+    postOrder(token, data).then(data => console.log(data))
   }
   return (
     <>
@@ -80,7 +126,7 @@ export default function ShippingForm() {
                 required: '* 필수 입력입니다.',
               })}
             />
-            {errors.name && <p>{errors.name.message}</p>}
+            {errors.name && <p className="alert">{errors.name.message}</p>}
           </S.InputWrapper>
           <S.InputWrapper width="100px">
             <label htmlFor="phoneNum">휴대폰</label>
@@ -111,9 +157,6 @@ export default function ShippingForm() {
                 required: '* 필수 입력입니다.',
               })}
             />
-            {errors.myPhone1 || errors.myPhone2 || errors.myPhone3 ? (
-              <p>{errors.myPhone1.message}</p>
-            ) : null}
           </S.InputWrapper>
           <S.InputWrapper width="334px">
             <label htmlFor="mail">이메일</label>
@@ -130,7 +173,7 @@ export default function ShippingForm() {
                 },
               })}
             />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && <p className="alert">{errors.email.message}</p>}
           </S.InputWrapper>
         </S.Info>
         <S.Info>
@@ -151,7 +194,9 @@ export default function ShippingForm() {
                 required: '* 필수 입력입니다.',
               })}
             />
-            {errors.receiver && <p>{errors.receiver.message}</p>}
+            {errors.receiver && (
+              <p className="alert">{errors.receiver.message}</p>
+            )}
           </S.InputWrapper>
           <S.InputWrapper width="100px">
             <label htmlFor="phoneNum">휴대폰</label>
@@ -182,9 +227,6 @@ export default function ShippingForm() {
                 required: '* 필수 입력입니다.',
               })}
             />
-            {errors.phone1 || errors.phone2 || errors.phone3 ? (
-              <p>{errors.phone1.message}</p>
-            ) : null}
           </S.InputWrapper>
           <S.InputWrapper width="170px">
             <label htmlFor="address">배송주소</label>
@@ -215,9 +257,15 @@ export default function ShippingForm() {
               })}
             />
             {errors.address2 && (
-              <p style={{ marginLeft: '170px', marginTop: '10px' }}>
-                {errors.address2.message}
-              </p>
+              <>
+                <br />
+                <p
+                  style={{ marginLeft: '170px', marginTop: '10px' }}
+                  className="alert"
+                >
+                  {errors.address2.message}
+                </p>
+              </>
             )}
           </S.InputWrapper>
           <S.InputWrapper width="800px">
@@ -229,9 +277,15 @@ export default function ShippingForm() {
               })}
             />
             {errors.address_message && (
-              <p style={{ marginLeft: '170px', marginTop: '10px' }}>
-                {errors.address_message.message}
-              </p>
+              <>
+                <br />
+                <p
+                  style={{ marginLeft: '170px', marginTop: '10px' }}
+                  className="alert"
+                >
+                  {errors.address_message.message}
+                </p>
+              </>
             )}
           </S.InputWrapper>
         </S.Info>
@@ -290,6 +344,8 @@ export default function ShippingForm() {
           <TotalPayment
             isJoinDisabled={isJoinDisabled}
             setCheckAgree={setCheckAgree}
+            totalPrice={totalPrice}
+            totalFee={totalFee}
           />
         </S.FlexDiv>
       </S.FormContainer>

@@ -32,6 +32,11 @@ export const Info = styled.div`
     padding: 6px 10px;
     color: var(--light-grey);
   }
+  p.alert {
+    color: var(--red);
+    font-size: 14px;
+    font-weight: 500;
+  }
 `
 export const InputWrapper = styled.div`
   padding: 8px 0px;

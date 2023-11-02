@@ -78,6 +78,7 @@ export default function Cart() {
                   cartItemsIds: checkedProducts,
                   product_id: [],
                   count: [],
+                  order_kind: 'cart_order',
                 },
               })
             }}
