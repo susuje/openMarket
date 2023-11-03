@@ -46,46 +46,56 @@ export default function Cart() {
           setTotalFee={setTotalFee}
           setAllClick={setAllClick}
         />
-        {myCartList.map(product => (
-          <ProductList
-            key={product.product_id}
-            productId={product.product_id}
-            quantity={product.quantity}
-            cartItemId={product.cart_item_id}
-            token={token}
-            setTotalPrice={setTotalPrice}
-            setTotalFee={setTotalFee}
-            fetchCartList={fetchCartList}
-            setCheckedProducts={setCheckedProducts}
-            checkedProducts={checkedProducts}
-            allClick={allClick}
-            setAllClick={setAllClick}
-          />
-        ))}
-        <DeleteProductBtn
-          checkedProducts={checkedProducts}
-          fetchCartList={fetchCartList}
-          setCheckedProducts={setCheckedProducts}
-          setTotalPrice={setTotalPrice}
-          setTotalFee={setTotalFee}
-        />
-        <TotalPriceBar totalPrice={totalPrice} totalFee={totalFee} />
-        <S.BtnDiv>
-          <S.OrderBtn
-            onClick={() => {
-              navigate('/payment', {
-                state: {
-                  cartItemsIds: checkedProducts,
-                  product_id: [],
-                  count: [],
-                  order_kind: 'cart_order',
-                },
-              })
-            }}
-          >
-            주문 하기
-          </S.OrderBtn>
-        </S.BtnDiv>
+        {myCartList.length === 0 ? (
+          <div className="noCart">
+            <p className="noCart">장바구니에 담긴 상품이 없습니다.</p>
+          </div>
+        ) : (
+          myCartList.map(product => (
+            <ProductList
+              key={product.product_id}
+              productId={product.product_id}
+              quantity={product.quantity}
+              cartItemId={product.cart_item_id}
+              token={token}
+              setTotalPrice={setTotalPrice}
+              setTotalFee={setTotalFee}
+              fetchCartList={fetchCartList}
+              setCheckedProducts={setCheckedProducts}
+              checkedProducts={checkedProducts}
+              allClick={allClick}
+              setAllClick={setAllClick}
+            />
+          ))
+        )}
+        {myCartList.length === 0 ? null : (
+          <>
+            <DeleteProductBtn
+              checkedProducts={checkedProducts}
+              fetchCartList={fetchCartList}
+              setCheckedProducts={setCheckedProducts}
+              setTotalPrice={setTotalPrice}
+              setTotalFee={setTotalFee}
+            />
+            <TotalPriceBar totalPrice={totalPrice} totalFee={totalFee} />
+            <S.BtnDiv>
+              <S.OrderBtn
+                onClick={() => {
+                  navigate('/payment', {
+                    state: {
+                      cartItemsIds: checkedProducts,
+                      product_id: [],
+                      count: [],
+                      order_kind: 'cart_order',
+                    },
+                  })
+                }}
+              >
+                주문 하기
+              </S.OrderBtn>
+            </S.BtnDiv>
+          </>
+        )}
       </S.Container>
       <Footer />
     </>
