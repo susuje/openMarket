@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import Slider from 'react-slick'
 export const SliderContainer = styled(Slider)`
   width: 100%;
+  margin: 0 auto;
+  max-width: 1920px;
   height: 100%;
   position: relative;
   overflow: hidden; // 공백 제거

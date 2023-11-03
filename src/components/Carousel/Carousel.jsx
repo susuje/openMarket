@@ -9,18 +9,18 @@ import banner3 from '../../assets/img/banner3.svg'
 
 export default function Carousel() {
   const images = useRef([
-    { src: banner, alt: '첫번째 배너' },
-    { src: banner2, alt: '두번째 배너 코드할인' },
-    { src: banner3, alt: '세번째 배너 사이트소개' },
+    { src: banner2, alt: '첫번째 배너' },
+    { src: banner3, alt: '두번째 배너 코드할인' },
+    { src: banner, alt: '세번째 배너 사이트소개' },
   ])
   const settings = {
     dots: true, // 캐러셀 밑 버튼
     infinite: true, // 콘텐츠 맨 끝에서 다시 앞으로 반복
-    speed: 1200, // 콘텐츠 넘어가는 속도 (ms)
+    speed: 1500, // 콘텐츠 넘어가는 속도 (ms)
     slidesToShow: 1, // 한화면에 보이는 콘텐츠 개수
     slidesToScroll: 1, // 한번에 넘어가는 콘텐츠 수
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
 
     appendDots: dots => (
       <S.DotsDiv>
