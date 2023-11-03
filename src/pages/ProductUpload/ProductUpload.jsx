@@ -19,9 +19,19 @@ import {
 
 export default function ProductUpload() {
   const navigate = useNavigate()
+  const categories = [
+    '가구',
+    '홈데코',
+    '문구',
+    '악세사리',
+    '패션',
+    '신발',
+    '음악',
+    '화장품',
+  ]
   const [parcelClicked, setParcelClicked] = useState(true)
   const [deliveryClicked, setDeliveryClicked] = useState(false)
-  //const [uploadImage, setUploadImage] = useState(null)
+  const [clickedIndex, setClickedIndex] = useState(0)
   const [previewImage, setPreviewImage] = useState(null)
   const [isSavedDisabled, setIsSavedDisabled] = useState(true)
   const imageInput = useRef(null)
@@ -30,7 +40,9 @@ export default function ProductUpload() {
   const setProductId = useSetRecoilState(product_id)
   const [modifyProduct, setModifyProduct] = useState({})
   const token = useRecoilValue(userTokenState)
-
+  const handleCategorieBtn = index => {
+    setClickedIndex(index)
+  }
   //react-hook-form
   const {
     register,
@@ -65,7 +77,7 @@ export default function ProductUpload() {
   const All = watch()
   useEffect(() => {
     const allInputFilled = Object.values(All).every(el => Boolean(el))
-    console.log(allInputFilled, Object.values(All))
+    //console.log(allInputFilled, Object.values(All))
     if (allInputFilled) {
       setIsSavedDisabled(false)
     } else {
@@ -153,10 +165,10 @@ export default function ProductUpload() {
 
     if (UpdateProductId) {
       //수정
-      ModifyProductMutation.mutate({ token, UpdateProductId, ...productData })
+      //ModifyProductMutation.mutate({ token, UpdateProductId, ...productData })
     } else {
       //업로드
-      UploadProductMutation.mutate({ token, ...productData })
+      //UploadProductMutation.mutate({ token, ...productData })
     }
   }
 
@@ -278,6 +290,20 @@ export default function ProductUpload() {
                   </S.InputBox>
                 </S.ProductInfo>
               </S.GridDiv>
+              <S.InputBox>
+                <label htmlFor="categorie" className="categorie">
+                  카테고리
+                </label>
+                {categories.map((el, index) => (
+                  <S.CategorieBtn
+                    type="button"
+                    className={clickedIndex === index ? 'clicked' : ''}
+                    onClick={() => handleCategorieBtn(index)}
+                  >
+                    {el}
+                  </S.CategorieBtn>
+                ))}
+              </S.InputBox>
               <S.ProductDetail>
                 <p>상품 상세 정보</p>
                 {errors.product_info && (

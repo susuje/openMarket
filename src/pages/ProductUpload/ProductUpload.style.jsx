@@ -54,7 +54,7 @@ export const UploadForm = styled.form`
 export const GridDiv = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 `
 export const ImageDiv = styled.div`
   label {
@@ -103,6 +103,9 @@ export const InputBox = styled.div`
   label {
     display: inline-block;
     margin-bottom: 10px;
+  }
+  label.categorie {
+    display: block;
   }
   &:first-child {
     position: relative;
@@ -201,4 +204,17 @@ export const Error = styled.p`
   display: inline-block;
   font-size: 14px;
   margin-left: 10px;
+`
+// 카테고리 버튼
+export const CategorieBtn = styled.button`
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid var(--grey-border);
+  margin-right: 10px;
+  font-size: 16px;
+  &.clicked {
+    color: white;
+    background-color: black;
+  }
 `
