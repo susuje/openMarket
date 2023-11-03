@@ -37,6 +37,7 @@ export default function Home() {
       <Carousel />
       <HomeCategorie />
       <S.ProductContainer>
+        <S.H1>New Arrivals</S.H1>
         <S.ProductLists>
           {allProducts.map(product => (
             <CardProduct

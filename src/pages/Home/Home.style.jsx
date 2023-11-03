@@ -5,6 +5,11 @@ export const ProductContainer = styled.section`
   padding: 80px 20px;
   max-width: 1280px;
 `
+export const H1 = styled.h1`
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 50px;
+`
 export const ProductLists = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
