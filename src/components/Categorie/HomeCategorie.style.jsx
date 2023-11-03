@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 import Slider from 'react-slick'
+
+export const Div = styled.div`
+  max-width: 1920px;
+  margin: 50px auto 0px auto;
+`
 export const SliderContainer = styled(Slider)`
   .slick-slide div {
     margin: 0 10px;
@@ -16,6 +21,10 @@ export const Img = styled.img`
   height: 250px;
   object-fit: cover;
   border-radius: 15px;
+`
+export const H1Div = styled.div`
+  max-width: 1280px;
+  margin: 0 auto;
 `
 export const H1 = styled.h1`
   font-weight: 700;

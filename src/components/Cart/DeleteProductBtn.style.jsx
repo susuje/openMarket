@@ -6,8 +6,7 @@ export const Button = styled.button`
   padding: 10px;
   border: 1px solid var(--grey-border);
   border-radius: 5px;
-  margin-top: 10px;
-  margin-left: 5px;
+  margin: 10px 0px 20px 0px;
   transition: all 0.5s;
   &:hover {
     border: 1px solid #000000;

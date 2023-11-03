@@ -4,10 +4,13 @@ import triangleDown from '../../assets/icon/icon-triangle-down.svg'
 import searchIcon from '../../assets/icon/search.svg'
 
 export const Nav = styled.nav`
+  max-width: 1920px;
+  margin: 0 auto;
+`
+export const CenterNav = styled.div`
   padding: 20px;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.1);
 `
 export const FlexBox = styled.div`
   display: flex;

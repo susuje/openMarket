@@ -56,8 +56,10 @@ export default function HomeCategorie() {
     ],
   }
   return (
-    <>
-      <S.H1>Shop Our Top Categories</S.H1>
+    <S.Div>
+      <S.H1Div>
+        <S.H1>Top Categories</S.H1>
+      </S.H1Div>
       <S.SliderContainer {...settings}>
         {images.current.map((img, index) => (
           <S.ImageContainer>
@@ -66,6 +68,6 @@ export default function HomeCategorie() {
           </S.ImageContainer>
         ))}
       </S.SliderContainer>
-    </>
+    </S.Div>
   )
 }
