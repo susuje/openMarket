@@ -11,10 +11,10 @@ export const SliderContainer = styled(Slider)`
 `
 
 export const Img = styled.img`
-  object-fit: cover; // 이미지를 가로/세로로 채우기 위해서는 cover 속성을 사용하세요
-  width: 100%; // 이미지의 너비를 100%로 설정하세요
-  height: 100%; // 이미지의 높이를 100%로 설정하세요
-  max-height: 500px; // 최대 높이를 설정하세요
+  object-fit: cover; // 이미지를 가로 세로로 채움
+  width: 100%; // 이미지의 너비
+  height: 100%; // 이미지의 높이
+  max-height: 500px; // 최대 높이
 `
 export const DotsDiv = styled.div`
   bottom: 20px;

@@ -60,13 +60,18 @@ export default function ProductUpload() {
     if (UpdateProductId) {
       getProductDetail(UpdateProductId).then(data => {
         setModifyProduct(data)
-        //console.log(modifyProduct, '수정상품')
+        //console.log(data, '수정상품')
         setPreviewImage(data.image)
         // setValue('image', data.image)
         setValue('product_name', data.product_name)
         setValue('shipping_method', data.shipping_method)
         setValue('price', data.price)
-        setValue('product_info', data.product_info)
+        setValue('product_info', JSON.parse(data.product_info)[1][0])
+
+        //카테고리
+        const index = categories.indexOf(JSON.parse(data.product_info)[0][0])
+        setClickedIndex(index)
+
         setValue('stock', data.stock)
         setValue('shipping_fee', data.shipping_fee.toString())
       })
@@ -158,6 +163,10 @@ export default function ProductUpload() {
     //상품 수정할때랑 업로드할떄 달라야함.  UpdateProductId 있으면 수정API 없으면 밑에코드대로.
     const productData = {
       ...data,
+      product_info: JSON.stringify([
+        [categories[clickedIndex]],
+        [data.product_info],
+      ]),
       price: parseInt(data.price, 10),
       shipping_fee: parseInt(data.shipping_fee, 10),
     }
@@ -165,10 +174,10 @@ export default function ProductUpload() {
 
     if (UpdateProductId) {
       //수정
-      //ModifyProductMutation.mutate({ token, UpdateProductId, ...productData })
+      ModifyProductMutation.mutate({ token, UpdateProductId, ...productData })
     } else {
       //업로드
-      //UploadProductMutation.mutate({ token, ...productData })
+      UploadProductMutation.mutate({ token, ...productData })
     }
   }
 

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as S from './ProductList.style'
 
-import img from '../../assets/img/cate3.png'
-
 import { getProductDetail } from '../../api/ProductApi'
 
 export default function ProductList({

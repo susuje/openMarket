@@ -10,6 +10,7 @@ import Payment from './pages/Payment/Payment'
 import SellerCenter from './pages/SellerCenter/SellerCenter'
 import Mypage from './pages/Mypage/Mypage'
 import ProductUpload from './pages/ProductUpload/ProductUpload'
+import Category from './pages/Category/Category'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/center" element={<SellerCenter />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/productUpload" element={<ProductUpload />} />
+        <Route path="/category/:category" element={<Category />} />
       </Routes>
     </BrowserRouter>
   )

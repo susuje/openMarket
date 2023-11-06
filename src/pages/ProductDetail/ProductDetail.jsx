@@ -24,6 +24,7 @@ export default function ProductDetail() {
   const { product_id } = useParams()
   const [productDetail, setProductDetail] = useState({})
   const [count, setCount] = useState(1)
+  const [info, setInfo] = useState('')
 
   const handleClickCart = () => {
     console.log('클릭')
@@ -48,6 +49,16 @@ export default function ProductDetail() {
     getProductDetail(product_id).then(data => {
       setProductDetail(data)
       console.log(data)
+
+      try {
+        if (JSON.parse(data.product_info).length === 2) {
+          //카테코리 있을경우
+          setInfo(JSON.parse(data.product_info)[1][0])
+        }
+      } catch (e) {
+        //카테코리 없을경우
+        setInfo(data.product_info)
+      }
     })
   }, [])
   return (
@@ -123,7 +134,7 @@ export default function ProductDetail() {
         </S.InfoWrapper>
       </S.Container>
       <DetailTab />
-      <S.Content>{productDetail.product_info}</S.Content>
+      <S.Content>{info}</S.Content>
       <Footer />
     </>
   )

@@ -7,20 +7,22 @@ export const Div = styled.div`
 `
 export const SliderContainer = styled(Slider)`
   .slick-slide div {
-    margin: 0 10px;
+    margin-left: 15px;
   }
+
   overflow: hidden;
 `
 export const ImageContainer = styled.div`
   max-width: 200px;
   max-height: 250px;
   position: relative;
+  cursor: pointer;
 `
 export const Img = styled.img`
   width: 200px;
-  height: 250px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: 100%;
 `
 export const H1Div = styled.div`
   max-width: 1280px;
@@ -37,7 +39,7 @@ export const Title = styled.p`
   font-weight: 500;
   font-size: 30px;
   position: absolute;
-  top: 60px;
+  top: 83px;
   color: white;
   width: 100%; // 너비 설정
   text-align: center; // 정렬 설정
