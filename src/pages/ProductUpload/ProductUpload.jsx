@@ -220,7 +220,7 @@ export default function ProductUpload() {
                       <S.Error>{errors.product_name.message}</S.Error>
                     )}
                     <S.NameInput
-                      maxLength="30"
+                      maxLength="20"
                       id="productName"
                       type="text"
                       {...register('product_name', {
@@ -230,7 +230,7 @@ export default function ProductUpload() {
                         UpdateProductId ? modifyProduct.product_name : ''
                       }
                     />
-                    <small>0/30</small>
+                    <small>0/20</small>
                   </S.InputBox>
                   <S.InputBox>
                     <label htmlFor="price">판매가</label>

@@ -9,9 +9,19 @@ export const SliderContainer = styled(Slider)`
   .slick-slide div {
     margin-left: 15px;
   }
-
+  .slick-next:before {
+    display: none;
+  }
   overflow: hidden;
 `
+export const NextDiv = styled.div`
+  width: 30px;
+  height: 30px;
+
+  top: 100px;
+  right: 15px;
+`
+
 export const ImageContainer = styled.div`
   max-width: 200px;
   max-height: 250px;

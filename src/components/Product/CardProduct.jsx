@@ -10,23 +10,28 @@ import { userTokenState } from '../../atoms/Atoms'
 
 export default function CardProduct({ product, onClick, userType }) {
   const token = useRecoilValue(userTokenState)
-  //Buyer만 가능하게! ==> 나중에 수정하기
-  const handleClickCart = () => {
-    const data = {
-      product_id: product.product_id,
-      quantity: 1,
-      check: true,
-    }
-    console.log(data)
 
-    putCartProduct(token, data)
-      .then(data => {
-        console.log(data)
-        window.alert('장바구니에 담겼어용')
-      })
-      .catch(error => {
-        window.alert(error.response.data.FAIL_message) // 실패
-      })
+  //Buyer만 가능하게!
+  const handleClickCart = () => {
+    if (userType === 'BUYER') {
+      const data = {
+        product_id: product.product_id,
+        quantity: 1,
+        check: true,
+      }
+      console.log(data)
+
+      putCartProduct(token, data)
+        .then(data => {
+          console.log(data)
+          window.alert('장바구니에 담겼어용')
+        })
+        .catch(error => {
+          window.alert(error.response.data.FAIL_message) // 실패
+        })
+    } else {
+      window.alert('BUYER만 이용할 수 있습니다')
+    }
   }
 
   return (

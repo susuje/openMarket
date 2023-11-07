@@ -26,23 +26,40 @@ export default function ProductDetail() {
   const [count, setCount] = useState(1)
   const [info, setInfo] = useState('')
 
-  const handleClickCart = () => {
-    console.log('클릭')
-    const data = {
-      product_id: product_id,
-      quantity: count,
-      check: true,
+  const handleDirectOrder = () => {
+    if (userType === 'BUYER') {
+      navigate('/payment', {
+        state: {
+          product_id: [productDetail.product_id],
+          count: [count],
+          order_kind: 'direct_order',
+        },
+      })
+    } else {
+      window.alert('BUYER만 구입할 수 있습니다')
     }
-    console.log(data)
+  }
+  const handleClickCart = () => {
+    if (userType === 'BUYER') {
+      console.log('클릭')
+      const data = {
+        product_id: product_id,
+        quantity: count,
+        check: true,
+      }
+      console.log(data)
 
-    putCartProduct(token, data)
-      .then(data => {
-        console.log(data)
-        window.alert('장바구니에 담겼어용')
-      })
-      .catch(error => {
-        window.alert(error.response.data.FAIL_message) // 실패
-      })
+      putCartProduct(token, data)
+        .then(data => {
+          console.log(data)
+          window.alert('장바구니에 담겼어용')
+        })
+        .catch(error => {
+          window.alert(error.response.data.FAIL_message) // 실패
+        })
+    } else {
+      window.alert('BUYER만 이용할 수 있습니다')
+    }
   }
 
   useEffect(() => {
@@ -111,13 +128,7 @@ export default function ProductDetail() {
           <S.Btns>
             <S.Btn
               onClick={() => {
-                navigate('/payment', {
-                  state: {
-                    product_id: [productDetail.product_id],
-                    count: [count],
-                    order_kind: 'direct_order',
-                  },
-                })
+                handleDirectOrder()
               }}
             >
               바로 구매

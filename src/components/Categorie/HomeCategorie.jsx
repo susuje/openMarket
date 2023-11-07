@@ -4,6 +4,9 @@ import * as S from './HomeCategorie.style'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
+import { ReactComponent as Next } from '../../assets/icon/activePageRightBtn.svg'
+import { ReactComponent as Prev } from '../../assets/icon/activePageLeftBtn.svg'
+
 import cate1 from '../../assets/img/beaute.jpg'
 import cate2 from '../../assets/img/stat.jpg'
 import cate3 from '../../assets/img/cate4.png' //패션
@@ -29,9 +32,15 @@ export default function HomeCategorie() {
   ])
   const settings = {
     infinite: true,
-    slidesToShow: 6,
-    slidesToScroll: 4,
+    slidesToShow: 5,
+    slidesToScroll: 5,
     initialSlide: 0,
+    nextArrow: (
+      <S.NextDiv>
+        <Next />
+      </S.NextDiv>
+    ),
+
     responsive: [
       {
         breakpoint: 1024,

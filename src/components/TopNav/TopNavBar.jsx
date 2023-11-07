@@ -15,6 +15,7 @@ import userIcon from '../../assets/icon/icon-user.svg'
 import cartIcon from '../../assets/icon/icon-shopping-cart.svg'
 
 export default function TopNavBar({ userType }) {
+  const navigate = useNavigate()
   const userName = useRecoilValue(myUserName)
   const [showMenu, setShowMenu] = useState(false)
   const [typedInput, setTypedInput] = useState(false)
@@ -35,12 +36,11 @@ export default function TopNavBar({ userType }) {
     navigate('/login')
   }
 
-  const navigate = useNavigate()
   return (
     <S.Nav>
       <S.CenterNav>
         <button>
-          <img src={logo} alt="로고 이미지" />
+          <img src={logo} alt="로고 이미지" onClick={() => navigate('/')} />
         </button>
         <S.FlexBox>
           <S.SearchBox>
