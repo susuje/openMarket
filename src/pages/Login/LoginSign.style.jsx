@@ -4,6 +4,7 @@ export const Img = styled.img`
   width: 334px;
   height: 95px;
   margin-bottom: 50px;
+  cursor: pointer;
 `
 export const Container = styled.div`
   width: max-content;

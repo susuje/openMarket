@@ -35,7 +35,7 @@ export default function Home() {
     <>
       <TopNavBar userType={userType} />
       <Carousel />
-      <HomeCategorie />
+      <HomeCategorie allPages={allPages} />
       <S.ProductContainer>
         <S.H1>New Arrivals</S.H1>
         <S.ProductLists>
@@ -55,6 +55,7 @@ export default function Home() {
         pageNum={pageNum}
         setPageNum={setPageNum}
         allPages={allPages}
+        setAllPages={setAllPages}
       />
       <Footer />
     </>

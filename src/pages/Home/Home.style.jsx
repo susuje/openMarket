@@ -4,6 +4,7 @@ export const ProductContainer = styled.section`
   margin: 0 auto;
   padding: 80px 20px;
   max-width: 1280px;
+  min-height: 1000px;
 `
 export const H1 = styled.h1`
   font-weight: 700;

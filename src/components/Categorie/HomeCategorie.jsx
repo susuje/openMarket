@@ -17,7 +17,7 @@ import cate7 from '../../assets/img/mu.jpg'
 import cate8 from '../../assets/img/cate8.png'
 import cate9 from '../../assets/img/etc.png'
 
-export default function HomeCategorie() {
+export default function HomeCategorie({ allPages }) {
   const navigate = useNavigate()
   const images = useRef([
     { src: cate1, alt: '화장품 카테고리', title: 'Beauty' },
@@ -75,7 +75,15 @@ export default function HomeCategorie() {
       </S.H1Div>
       <S.SliderContainer {...settings}>
         {images.current.map((img, index) => (
-          <S.ImageContainer onClick={() => navigate(`/category/${img.title}`)}>
+          <S.ImageContainer
+            onClick={() =>
+              navigate(`/category/${img.title}`, {
+                state: {
+                  allPages: allPages,
+                },
+              })
+            }
+          >
             <S.Img src={img.src} alt={img.alt} />
             <S.Title>{img.title}</S.Title>
           </S.ImageContainer>
