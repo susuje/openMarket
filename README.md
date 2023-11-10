@@ -1,71 +1,37 @@
-# Getting Started with Create React App
+# 🔮 PLAY LAB - 패션부터 라이프스타일까지 | 디자이너 셀렉샵
+> ```PLAY LAB```은 디자이너에게 상품을 판매하는 서비스를 제공하고,<br> 소비자는 디자이너의 상품을 카테고리별로 확인 후 구매할 수 있습니다. <br>
+<br>
+<br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 프로젝트 기능 소개
+```
+- PLAY LAB은 구매회원, 판매회원(디자이너)로 나뉘어 물건을 사거나 팔 수 있는 서비스를 제공합니다.
 
-## Available Scripts
+- 회원가입
+    - 원하는 목적(구매회원, 판매회원)에 따라 가입
+    - react-hook-form을 이용해 각 input의 유효성 검사 구현
 
-In the project directory, you can run:
+- 구매회원
+    - 홈화면에서 카트아이콘을 통해 장바구니에 담거나, 상품 상세 페이지에서 원하는 수량으로 장바구니에 담을 수 있습니다.
+    - 장바구니 내에서 상품 수량을 변경 및 삭제
+    - 상품 상세 페이지 내에서 바로 구매 가능
+    - 결제 페이지에서 모든 정보를 입력후 주문
+    - 마이 페이지에서 주문한 상품 확인 
 
-### `npm start`
+- 판매회원
+    - 판매회원은 상품 주문 불가능, 상품 업로드만 가능
+    - 판매자 센터 페이지에서 상품 업로드
+    - 판매자 센터 페이지에서 판매중인 상품 확인 및 수정 삭제
+    - 카테고리 설정하여 상품 업로드
+    - 상품 업로드 및 수정 시 react-hook-form을 이용해 각 input의 유효성 검사 구현
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 검색기능
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
 
-### `npm test`
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# openMarket
+| home | 로그인(구매 회원) | 회원 가입(구매 회원) |
+| ------ | ------ | ------ | 
+|![homesss](https://github.com/susuje/openMarket/assets/115439373/856f8ab3-fc55-4493-96e4-a52508141b51)|![loginin](https://github.com/susuje/openMarket/assets/115439373/9f010369-728b-4b6f-a158-96300d53a594) |![sign](https://github.com/susuje/openMarket/assets/115439373/23ebff15-6bb7-4b66-a869-5e6adc8fc7ad)
+ |
