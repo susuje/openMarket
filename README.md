@@ -31,7 +31,19 @@
 
 <br>
 
-| home | 로그인(구매 회원) | 회원 가입(구매 회원) |
-| ------ | ------ | ------ | 
-|![homesss](https://github.com/susuje/openMarket/assets/115439373/856f8ab3-fc55-4493-96e4-a52508141b51)|![loginin](https://github.com/susuje/openMarket/assets/115439373/9f010369-728b-4b6f-a158-96300d53a594) |![sign](https://github.com/susuje/openMarket/assets/115439373/23ebff15-6bb7-4b66-a869-5e6adc8fc7ad)
- |
+## 기능 시연
+
+| 홈 (pageNation) | 카테고리 화면 |
+| ------ | ------ |
+|![homesss](https://github.com/susuje/openMarket/assets/115439373/856f8ab3-fc55-4493-96e4-a52508141b51) | ![category](https://github.com/susuje/openMarket/assets/115439373/cfcce4d8-0ac7-43be-ac90-f0062bf44388)
+ 
+
+| 회원 가입 (구매 회원) |  로그인 (구매 회원) |
+| ------ | ------ | 
+| ![sign](https://github.com/susuje/openMarket/assets/115439373/23ebff15-6bb7-4b66-a869-5e6adc8fc7ad) |![loginin](https://github.com/susuje/openMarket/assets/115439373/9f010369-728b-4b6f-a158-96300d53a594)
+
+
+| 상품페이지 장바구니 | 홈화면 바로 장바구니 |
+| ------ | ------ | 
+| ![cartDetailPage](https://github.com/susuje/openMarket/assets/115439373/c85f6b51-616a-4b75-b6aa-18561aabd794) |![carthome](https://github.com/susuje/openMarket/assets/115439373/ddbd1db4-2c7c-4f6b-bbbd-c18989a202fa)|
+
