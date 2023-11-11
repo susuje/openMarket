@@ -12,13 +12,14 @@ import {
 
 import logo from '../../assets/icon/logo.svg'
 import userIcon from '../../assets/icon/icon-user.svg'
-import cartIcon from '../../assets/icon/icon-shopping-cart.svg'
+//import cartIcon from '../../assets/icon/icon-shopping-cart.svg'
 
 export default function TopNavBar({ userType }) {
   const navigate = useNavigate()
   const userName = useRecoilValue(myUserName)
   const [showMenu, setShowMenu] = useState(false)
   const [typedInput, setTypedInput] = useState(false)
+  const [searchTxt, setSearchTxt] = useState('')
 
   const setIsLogin = useSetRecoilState(isLoginState)
   const setUserToken = useSetRecoilState(userTokenState)
@@ -35,7 +36,13 @@ export default function TopNavBar({ userType }) {
     setUserType('')
     navigate('/login')
   }
-
+  const handleSearch = () => {
+    navigate(`/search/${searchTxt}`, {
+      state: {
+        searchTxt: searchTxt,
+      },
+    })
+  }
   return (
     <S.Nav>
       <S.CenterNav>
@@ -45,12 +52,20 @@ export default function TopNavBar({ userType }) {
         <S.FlexBox>
           <S.SearchBox>
             <S.SearchInput
-              onChange={e =>
-                e.target.value ? setTypedInput(true) : setTypedInput(false)
-              }
+              onChange={e => {
+                if (e.target.value) {
+                  setTypedInput(true)
+                  setSearchTxt(e.target.value)
+                } else {
+                  setTypedInput(false)
+                }
+              }}
               className={typedInput ? 'typed' : null}
             />
-            <S.SearchBtn></S.SearchBtn>
+            <S.SearchBtn
+              onClick={() => handleSearch()}
+              disabled={typedInput ? false : true}
+            ></S.SearchBtn>
           </S.SearchBox>
           <S.UserBox>
             <S.UserBtn

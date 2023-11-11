@@ -29,6 +29,7 @@ export default function Home() {
           : Math.floor(data.count / 15) + 1
       )
     })
+    window.scrollTo(0, 0)
   }, [pageNum])
 
   return (

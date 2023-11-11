@@ -61,3 +61,9 @@ export const deleteProduct = async (token, product_id) => {
   const result = await BaseInstance.delete(`/products/${product_id}`, config)
   return result.data
 }
+
+//3.6 상품 검색하기(GET)
+export const getSearchedProduct = async typing => {
+  const result = await BaseInstance.get(`/products/?search=${typing}`)
+  return result.data
+}

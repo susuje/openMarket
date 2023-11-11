@@ -17,6 +17,7 @@ export default function Cart() {
   const navigate = useNavigate()
   const token = useRecoilValue(userTokenState)
   const userType = useRecoilValue(userTypeState)
+
   const [myCartList, setMyCartList] = useState([])
   const [checkedProducts, setCheckedProducts] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
@@ -25,12 +26,12 @@ export default function Cart() {
   const fetchCartList = () => {
     getMyCart(token).then(data => {
       setMyCartList(data.results)
-      //  console.log(data.results)
     })
   }
 
   useEffect(() => {
     fetchCartList()
+    window.scrollTo(0, 0)
   }, [])
   //checkedProducts는 CartItemId
   return (

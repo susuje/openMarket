@@ -7,6 +7,7 @@ import Footer from '../../components/Footer/Footer'
 
 //import sampleImg from '../../assets/img/voyage.jpg'
 import DetailAmountBtn from '../../components/Product/DetailAmountBtn'
+import PutCartModal from '../../components/Modal/PutCartModal'
 
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
@@ -25,6 +26,15 @@ export default function ProductDetail() {
   const [productDetail, setProductDetail] = useState({})
   const [count, setCount] = useState(1)
   const [info, setInfo] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  //모달창 오픈시 스크롤 방지
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }, [isModalOpen])
 
   const handleDirectOrder = () => {
     if (userType === 'BUYER') {
@@ -52,7 +62,7 @@ export default function ProductDetail() {
       putCartProduct(token, data)
         .then(data => {
           console.log(data)
-          window.alert('장바구니에 담겼어용')
+          setIsModalOpen(true)
         })
         .catch(error => {
           window.alert(error.response.data.FAIL_message) // 실패
@@ -77,10 +87,12 @@ export default function ProductDetail() {
         setInfo(data.product_info)
       }
     })
+    window.scrollTo(0, 0)
   }, [])
   return (
     <>
       <TopNavBar userType={userType} />
+      {isModalOpen ? <PutCartModal setIsModalOpen={setIsModalOpen} /> : null}
       <S.Container>
         <S.Img src={productDetail.image} />
         <S.InfoWrapper>

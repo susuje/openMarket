@@ -17,11 +17,11 @@ export default function PageNationBtn({
     } else {
       setPagesArr(Array.from({ length: 5 }, (v, i) => i + 1)) //[1,2,3,4,5]
     }
-    console.log(allPages, 'allPages')
+    // console.log(allPages, 'allPages')
   }, [allPages])
 
   useEffect(() => {
-    console.log(pageNum, 'pageNum')
+    // console.log(pageNum, 'pageNum')
 
     if (pageNum !== 1) {
       setDisabledLeft(false)

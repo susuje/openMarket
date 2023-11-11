@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 import * as S from './Payment.style'
 
 import { useLocation } from 'react-router-dom'
+import TopNavBar from '../../components/TopNav/TopNavBar'
 import ProductList from '../../components/payment/ProductList'
 import ShippingForm from '../../components/payment/ShippingForm'
 
 import { getMyCartDetail } from '../../api/cartApi'
 import { useRecoilValue } from 'recoil'
-import { userTokenState } from '../../atoms/Atoms'
+import { userTokenState, userTypeState } from '../../atoms/Atoms'
 export default function Payment() {
   const token = useRecoilValue(userTokenState)
+  const userType = useRecoilValue(userTypeState)
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalFee, setTotalFee] = useState(0)
   const location = useLocation()
@@ -36,40 +38,43 @@ export default function Payment() {
   }, [])
 
   return (
-    <S.Wrapper>
-      <S.CartInfoBar>
-        <p>상품정보</p>
-        <div>
-          <p>할인</p>
-          <p>배송비</p>
-          <p>주문금액</p>
-        </div>
-      </S.CartInfoBar>
-      {productId.map(
-        (
-          product_id,
-          index //여러개일때 count index 설정해줘야함
-        ) => (
-          <ProductList
-            product_id={product_id}
-            count={counts[index]}
-            setTotalPrice={setTotalPrice}
-            setTotalFee={setTotalFee}
-          />
-        )
-      )}
-      <S.TotalPrice>
-        총 주문금액
-        <strong>{totalPrice.toLocaleString()}원</strong>
-      </S.TotalPrice>
-      <ShippingForm
-        totalPrice={totalPrice}
-        totalFee={totalFee}
-        order_kind={order_kind}
-        product_id={product_id}
-        count={count}
-        cartItemId={cartItemId}
-      />
-    </S.Wrapper>
+    <>
+      <TopNavBar userType={userType} />
+      <S.Wrapper>
+        <S.CartInfoBar>
+          <p>상품정보</p>
+          <div>
+            <p>할인</p>
+            <p>배송비</p>
+            <p>주문금액</p>
+          </div>
+        </S.CartInfoBar>
+        {productId.map(
+          (
+            product_id,
+            index //여러개일때 count index 설정해줘야함
+          ) => (
+            <ProductList
+              product_id={product_id}
+              count={counts[index]}
+              setTotalPrice={setTotalPrice}
+              setTotalFee={setTotalFee}
+            />
+          )
+        )}
+        <S.TotalPrice>
+          총 주문금액
+          <strong>{totalPrice.toLocaleString()}원</strong>
+        </S.TotalPrice>
+        <ShippingForm
+          totalPrice={totalPrice}
+          totalFee={totalFee}
+          order_kind={order_kind}
+          product_id={product_id}
+          count={count}
+          cartItemId={cartItemId}
+        />
+      </S.Wrapper>
+    </>
   )
 }

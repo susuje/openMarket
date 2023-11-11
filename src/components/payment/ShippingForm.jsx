@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDaumPostcodePopup } from 'react-daum-postcode'
 import { postcodeScriptUrl } from 'react-daum-postcode/lib/loadPostcode'
 import { useForm } from 'react-hook-form'
-
+import { useNavigate } from 'react-router-dom'
 import { postOrder } from '../../api/orderApi'
 import { modifyIsActive } from '../../api/cartApi'
 import { useRecoilValue } from 'recoil'
@@ -19,6 +19,7 @@ export default function ShippingForm({
   cartItemId,
 }) {
   // phone 010으로 바꿔야함
+  const navigate = useNavigate()
   const token = useRecoilValue(userTokenState)
   const [payment, setPayment] = useState('')
   const [checkAgree, setCheckAgree] = useState(false)
@@ -110,7 +111,10 @@ export default function ShippingForm({
       })
     }
     console.log(data)
-    postOrder(token, data).then(data => console.log(data))
+    postOrder(token, data).then(data => {
+      console.log(data)
+      navigate('/orderDone')
+    })
   }
   return (
     <>

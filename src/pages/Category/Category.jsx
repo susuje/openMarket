@@ -7,7 +7,7 @@ import * as SC from '../Home/Home.style'
 
 import { getAllProducts } from '../../api/ProductApi'
 import { useRecoilValue } from 'recoil'
-import { product_id, userTypeState } from '../../atoms/Atoms'
+import { userTypeState } from '../../atoms/Atoms'
 
 import TopNavBar from '../../components/TopNav/TopNavBar'
 import CardProduct from '../../components/Product/CardProduct'
@@ -65,11 +65,11 @@ export default function Category() {
 
   useEffect(() => {
     //페이지당 15개만 보여줘야하므로 products15를 설정하는 useEffect
+    window.scrollTo(0, 0)
     const firstIndex = 15 * (pageBtn - 1)
-    //console.log(pageBtn, 'pageBtn', firstIndex, 'firstIndex')
+
     const arr15 = []
     if (allProducts.length > firstIndex) {
-      console.log('go')
       for (
         let i = firstIndex;
         i < Math.min(firstIndex + 15, allProducts.length); //4개만 있을수도있으니까
@@ -79,7 +79,6 @@ export default function Category() {
         arr15.push(allProducts[i])
       }
       setProducts15(arr15)
-      //  console.log(products15, 'Products15')
     }
   }, [pageBtn, allProducts])
 

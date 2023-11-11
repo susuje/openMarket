@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as S from './CardProduct.style'
 
 //import glass from '../../assets/img/glass.jpg'
 import cartIcon from '../../assets/icon/large.svg'
-
+import PutCartModal from '../Modal/PutCartModal'
 import { putCartProduct } from '../../api/cartApi'
 import { useRecoilValue } from 'recoil'
 import { userTokenState } from '../../atoms/Atoms'
 
 export default function CardProduct({ product, onClick, userType }) {
   const token = useRecoilValue(userTokenState)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  //모달창 오픈시 스크롤 방지
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }, [isModalOpen])
 
   //Buyer만 가능하게!
   const handleClickCart = () => {
@@ -24,7 +33,8 @@ export default function CardProduct({ product, onClick, userType }) {
       putCartProduct(token, data)
         .then(data => {
           console.log(data)
-          window.alert('장바구니에 담겼어용')
+          //window.alert('장바구니에 담겼어용')
+          setIsModalOpen(true)
         })
         .catch(error => {
           window.alert(error.response.data.FAIL_message) // 실패
@@ -35,24 +45,27 @@ export default function CardProduct({ product, onClick, userType }) {
   }
 
   return (
-    <S.Card onClick={onClick}>
-      <S.SellerName>{product.store_name}</S.SellerName>
-      <S.ImgContainer $image={product.image}></S.ImgContainer>
-      <S.ProductName>{product.product_name}</S.ProductName>
-      <S.ProductPrice>
-        {product.price.toLocaleString()}
-        <span>원</span>
-      </S.ProductPrice>
-      <S.CartBtn>
-        <img
-          src={cartIcon}
-          alt="장바구니 아이콘"
-          onClick={e => {
-            e.stopPropagation() //없으면 S.Card onClick발동!
-            handleClickCart()
-          }}
-        />
-      </S.CartBtn>
-    </S.Card>
+    <>
+      {isModalOpen ? <PutCartModal setIsModalOpen={setIsModalOpen} /> : null}
+      <S.Card onClick={onClick}>
+        <S.SellerName>{product.store_name}</S.SellerName>
+        <S.ImgContainer $image={product.image}></S.ImgContainer>
+        <S.ProductName>{product.product_name}</S.ProductName>
+        <S.ProductPrice>
+          {product.price.toLocaleString()}
+          <span>원</span>
+        </S.ProductPrice>
+        <S.CartBtn>
+          <img
+            src={cartIcon}
+            alt="장바구니 아이콘"
+            onClick={e => {
+              e.stopPropagation() //없으면 S.Card onClick발동!
+              handleClickCart()
+            }}
+          />
+        </S.CartBtn>
+      </S.Card>
+    </>
   )
 }

@@ -11,6 +11,8 @@ import SellerCenter from './pages/SellerCenter/SellerCenter'
 import Mypage from './pages/Mypage/Mypage'
 import ProductUpload from './pages/ProductUpload/ProductUpload'
 import Category from './pages/Category/Category'
+import Search from './pages/Search/Search'
+import OrderDone from './pages/OrderDone/OrderDone'
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/productUpload" element={<ProductUpload />} />
         <Route path="/category/:category" element={<Category />} />
+        <Route path="/search/:productName" element={<Search />} />
+        <Route path="/orderDone" element={<OrderDone />} />
       </Routes>
     </BrowserRouter>
   )

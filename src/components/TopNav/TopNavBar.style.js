@@ -98,10 +98,11 @@ export const Ul = styled.ul`
         transition: 0.1s all;
         background: 10px 10px #f2f2f2;
         border-radius: 20px;
+        width: 80px;
       }
     }
     button {
-      width: 100px;
+      // width: 100px;
       padding: 10px 0;
     }
   }
