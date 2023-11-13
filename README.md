@@ -48,3 +48,6 @@
 | ------ | ------ | 
 | ![cartDetailPage](https://github.com/susuje/openMarket/assets/115439373/c85f6b51-616a-4b75-b6aa-18561aabd794) |![carthome](https://github.com/susuje/openMarket/assets/115439373/ddbd1db4-2c7c-4f6b-bbbd-c18989a202fa)|
 
+| 카트 전체 주문/결제 | 마이페이지 |
+| ------ | ------ | 
+| ![order](https://github.com/susuje/openMarket/assets/115439373/2773794e-5e94-4d4b-bfd9-6897003bf5c7) ||
