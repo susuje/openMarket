@@ -16,7 +16,7 @@
     - 장바구니 내에서 상품 수량을 변경 및 삭제
     - 상품 상세 페이지 내에서 바로 구매 가능
     - 결제 페이지에서 모든 정보를 입력후 주문
-    - 마이 페이지에서 주문한 상품 확인 
+    - 마이 페이지에서 주문한 상품 및 배송현황 확인 (주문날짜에서 하루 지나면 배송완료) 
 
 - 판매회원
     - 판매회원은 상품 주문 불가능, 상품 업로드만 가능
@@ -26,18 +26,27 @@
     - 상품 업로드 및 수정 시 react-hook-form을 이용해 각 input의 유효성 검사 구현
 
 - 검색기능
+    - 상단 bar 돋보기 마우스 주변 hover시 나타나는 검색 창에서 상품이름으로 검색
 
 ```
 
 <br>
 
-## 기능 시연
-### 클릭하면 크게 보입니다!
+## 기능 시연 
+클릭하면 크게 보입니다!
 
 | 홈 (pageNation) | 카테고리 화면 |
 | ------ | ------ |
-|![homesss](https://github.com/susuje/openMarket/assets/115439373/856f8ab3-fc55-4493-96e4-a52508141b51) | ![category](https://github.com/susuje/openMarket/assets/115439373/cfcce4d8-0ac7-43be-ac90-f0062bf44388)
+|![hh](https://github.com/susuje/openMarket/assets/115439373/4a461d96-334d-4db0-9797-5bdeaee51cdb)| ![category](https://github.com/susuje/openMarket/assets/115439373/cfcce4d8-0ac7-43be-ac90-f0062bf44388)
+
+| 검색 화면 | 로그아웃 |
+| ------ | ------ |
+|![search](https://github.com/susuje/openMarket/assets/115439373/d6433d12-a1fe-4ff0-952b-982d1bce068a)|![logout](https://github.com/susuje/openMarket/assets/115439373/71c5e7b7-f055-40a3-8a37-bb71bc256552)
+
+<br>
+<br>
  
+### 구매 회원
 
 | 회원 가입 (구매 회원) |  로그인 (구매 회원) |
 | ------ | ------ | 
@@ -50,4 +59,17 @@
 
 | 카트 전체 주문/결제 | 마이페이지 |
 | ------ | ------ | 
-| ![order](https://github.com/susuje/openMarket/assets/115439373/2773794e-5e94-4d4b-bfd9-6897003bf5c7) ||
+| ![order](https://github.com/susuje/openMarket/assets/115439373/2773794e-5e94-4d4b-bfd9-6897003bf5c7) |![image](https://github.com/susuje/openMarket/assets/115439373/a6d932a0-b197-42fa-8991-cd17cc14ae06)|
+
+<br>
+<br>
+
+### 판매 회원
+| 회원 가입 (판매 회원) |  로그인 (판매 회원) |
+| ------ | ------ | 
+|![signupseller](https://github.com/susuje/openMarket/assets/115439373/86dd9855-dad3-4bc7-982e-d5d91ef1c29e)|![loginseller](https://github.com/susuje/openMarket/assets/115439373/af6a76ff-c59b-4203-b6cb-0f79e8154789)|
+
+| 상품 업로드 | 상품 수정 및 삭제 |
+| ------ | ------ | 
+| ![upup](https://github.com/susuje/openMarket/assets/115439373/5c5a5aab-f25d-4fce-95fd-8985042a7266)|![edittdelete](https://github.com/susuje/openMarket/assets/115439373/9e1b10e6-18c4-4b0e-9c27-1250eba1a1ff)|
+
