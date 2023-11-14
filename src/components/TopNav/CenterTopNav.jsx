@@ -11,7 +11,7 @@ export default function CenterTopNav() {
         <button>
           <img src={logo} alt="플레이랩 로고" onClick={() => navigate('/')} />
         </button>
-        <h1>판매자 센터</h1>
+        <h1 onClick={() => navigate('/center')}>판매자 센터</h1>
       </S.Left>
     </S.Nav>
   )

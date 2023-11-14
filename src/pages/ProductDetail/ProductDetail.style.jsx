@@ -5,15 +5,25 @@ export const Container = styled.div`
   max-width: 1280px;
   margin: 80px auto 0px auto;
 `
+// export const ImgDiv = styled.div`
+//   max-width: 600px;
+//   max-height: 600px;
+//   position: relative;
+// `
 
 export const Img = styled.img`
-  // width: 50%;
-  // height: 50%;
+  // width: 100%;
+  // height: 100%;
   object-fit: cover;
   max-width: 600px;
   max-height: 600px;
   border-radius: 20px;
+
+  &.soldout {
+    filter: grayscale(50);
+  }
 `
+
 export const InfoWrapper = styled.div`
   margin-left: 50px;
   max-width: 600px;
@@ -101,6 +111,9 @@ export const Btn = styled.button`
   &.cart {
     background-color: var(--light-grey);
     width: 37%;
+  }
+  &:disabled {
+    cursor: default;
   }
 `
 

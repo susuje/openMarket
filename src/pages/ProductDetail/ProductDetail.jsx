@@ -27,6 +27,7 @@ export default function ProductDetail() {
   const [count, setCount] = useState(1)
   const [info, setInfo] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [tabClicked, setTabClicked] = useState('제품 상세')
   //모달창 오픈시 스크롤 방지
   useEffect(() => {
     if (isModalOpen) {
@@ -57,7 +58,7 @@ export default function ProductDetail() {
         quantity: count,
         check: true,
       }
-      console.log(data)
+      //console.log(data)
 
       putCartProduct(token, data)
         .then(data => {
@@ -75,7 +76,7 @@ export default function ProductDetail() {
   useEffect(() => {
     getProductDetail(product_id).then(data => {
       setProductDetail(data)
-      console.log(data)
+      //console.log(data)
 
       try {
         if (JSON.parse(data.product_info).length === 2) {
@@ -94,10 +95,18 @@ export default function ProductDetail() {
       <TopNavBar userType={userType} />
       {isModalOpen ? <PutCartModal setIsModalOpen={setIsModalOpen} /> : null}
       <S.Container>
-        <S.Img src={productDetail.image} />
+        <S.Img
+          src={productDetail.image}
+          className={productDetail.stock === 0 ? 'soldout' : null}
+        />
+
         <S.InfoWrapper>
           <p>{productDetail.store_name}</p>
-          <S.ProductName>{productDetail.product_name}</S.ProductName>
+          <S.ProductName>
+            {productDetail.stock === 0
+              ? productDetail.product_name + ' << SOLD OUT >>'
+              : productDetail.product_name}
+          </S.ProductName>
           <p className="won">
             <S.Price>
               {productDetail.price !== undefined && productDetail.price !== null
@@ -142,6 +151,7 @@ export default function ProductDetail() {
               onClick={() => {
                 handleDirectOrder()
               }}
+              disabled={productDetail.stock === 0 ? true : false}
             >
               바로 구매
             </S.Btn>
@@ -150,14 +160,17 @@ export default function ProductDetail() {
               onClick={() => {
                 handleClickCart()
               }}
+              disabled={productDetail.stock === 0 ? true : false}
             >
               장바구니
             </S.Btn>
           </S.Btns>
         </S.InfoWrapper>
       </S.Container>
-      <DetailTab />
-      <S.Content>{info}</S.Content>
+      <DetailTab setTabClicked={setTabClicked} tabClicked={tabClicked} />
+      <S.Content>
+        {tabClicked === '제품 상세' ? info : tabClicked + '는 준비중입니다.'}
+      </S.Content>
       <Footer />
     </>
   )

@@ -49,7 +49,11 @@ export default function CardProduct({ product, onClick, userType }) {
       {isModalOpen ? <PutCartModal setIsModalOpen={setIsModalOpen} /> : null}
       <S.Card onClick={onClick}>
         <S.SellerName>{product.store_name}</S.SellerName>
-        <S.ImgContainer $image={product.image}></S.ImgContainer>
+        <S.ImgContainer
+          $image={product.image}
+          className={product.stock === 0 ? 'soldout' : null}
+        ></S.ImgContainer>
+        {product.stock === 0 ? <S.H1Soldout>SOLD OUT</S.H1Soldout> : null}
         <S.ProductName>{product.product_name}</S.ProductName>
         <S.ProductPrice>
           {product.price.toLocaleString()}

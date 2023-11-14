@@ -18,5 +18,6 @@ export const Left = styled.div`
     margin-left: 16px;
     font-size: 30px;
     font-weight: 500;
+    cursor: pointer;
   }
 `

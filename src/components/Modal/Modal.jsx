@@ -18,6 +18,7 @@ export default function Modal({
   setCheckedProducts,
   checkedProducts,
   content,
+  fetchSellerList,
 }) {
   const token = useRecoilValue(userTokenState)
   const userType = useRecoilValue(userTypeState)
@@ -46,7 +47,7 @@ export default function Modal({
       }
     } else {
       //판매자일때
-      deleteProduct(token, productId)
+      deleteProduct(token, productId).then(data => fetchSellerList())
     }
     setIsModalOpen(false)
   }

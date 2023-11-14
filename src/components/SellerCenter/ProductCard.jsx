@@ -7,7 +7,7 @@ import * as S from './ProductCard.style'
 //import img from '../../assets/img/glass.jpg'
 import Modal from '../Modal/Modal'
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, fetchSellerList }) {
   const setProductId = useSetRecoilState(product_id)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const navigate = useNavigate()
@@ -28,6 +28,7 @@ export default function ProductCard({ product }) {
           productId={product.product_id}
           setIsModalOpen={setIsModalOpen}
           content={'상품'}
+          fetchSellerList={fetchSellerList}
         />
       ) : null}
       <S.Wrapper>

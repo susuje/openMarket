@@ -23,7 +23,33 @@ export const ImgContainer = styled.div`
   background: url(${({ $image }) => $image}) no-repeat center;
   background-size: cover;
   border-radius: 1rem;
+
+  &.soldout::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: black;
+    border-radius: 1rem;
+  }
 `
+export const H1Soldout = styled.h1`
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  font-size: 48px;
+  font-weight: 900;
+  z-index: 20;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+`
+
 export const ProductName = styled.p`
   color: var(--light-grey);
   font-size: 20px;

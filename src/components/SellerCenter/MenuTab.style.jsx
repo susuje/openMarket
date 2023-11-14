@@ -14,11 +14,7 @@ export const Btn = styled.button`
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 5px;
-  &:hover {
-    background-color: #f2f2f2;
-  }
-  &.active {
-    background-color: #000;
-    color: white;
-  }
+
+  background-color: #000;
+  color: white;
 `

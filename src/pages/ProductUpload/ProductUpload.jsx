@@ -82,7 +82,7 @@ export default function ProductUpload() {
   const All = watch()
   useEffect(() => {
     const allInputFilled = Object.values(All).every(el => Boolean(el))
-    //console.log(allInputFilled, Object.values(All))
+    // console.log(allInputFilled, Object.values(All))
     if (allInputFilled) {
       setIsSavedDisabled(false)
     } else {
@@ -95,7 +95,6 @@ export default function ProductUpload() {
   }
 
   const handleImageChange = e => {
-    //이부분 다시보기
     console.log('이미지선택')
     const file = e.target.files[0]
     const reader = new FileReader()
@@ -158,7 +157,7 @@ export default function ProductUpload() {
     }
   )
 
-  //상품 업로드 또는 수정 submit - 10.21 해야함
+  //상품 업로드 또는 수정 submit
   const onSubmit = data => {
     //상품 수정할때랑 업로드할떄 달라야함.  UpdateProductId 있으면 수정API 없으면 밑에코드대로.
     const productData = {
@@ -230,7 +229,10 @@ export default function ProductUpload() {
                         UpdateProductId ? modifyProduct.product_name : ''
                       }
                     />
-                    <small>0/20</small>
+                    <small>
+                      {Object.values(All)[0] ? Object.values(All)[0].length : 0}
+                      /20
+                    </small>
                   </S.InputBox>
                   <S.InputBox>
                     <label htmlFor="price">판매가</label>

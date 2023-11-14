@@ -3,7 +3,11 @@ import React from 'react'
 import * as S from './ProductListBox.style'
 import ProductCard from './ProductCard'
 import OrderProductCard from './OrderProductCard'
-export default function ProductListBox({ productList, userType }) {
+export default function ProductListBox({
+  productList,
+  userType,
+  fetchSellerList,
+}) {
   const infoBar =
     userType === 'BUYER'
       ? ['상품정보', '구매가격', '구매날짜', '배송현황']
@@ -23,12 +27,16 @@ export default function ProductListBox({ productList, userType }) {
                 <OrderProductCard
                   productId={productId}
                   quantity={x.order_quantity[index]}
-                  orderDate={x.updated_at}
+                  orderDate={x.created_at}
                 />
               ))
             )
           : productList.map(product => (
-              <ProductCard key={product.product_id} product={product} />
+              <ProductCard
+                key={product.product_id}
+                product={product}
+                fetchSellerList={fetchSellerList}
+              />
             ))}
       </S.ProductList>
     </S.Container>

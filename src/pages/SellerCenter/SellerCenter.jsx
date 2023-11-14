@@ -18,13 +18,17 @@ export default function SellerCenter() {
   const setProductId = useSetRecoilState(product_id)
   const [productList, setProductList] = useState([])
 
-  useEffect(() => {
+  const fetchSellerList = () => {
     getSellerProducts(token).then(data => {
       setProductList(data.results)
     })
     console.log('항')
-  }, [productList])
-  //무한 루프중, cart페이지처럼 fetchData 함수 만들어서 바꾸기.
+  }
+
+  useEffect(() => {
+    fetchSellerList()
+  }, [])
+
   const navigate = useNavigate()
   return (
     <>
@@ -45,8 +49,11 @@ export default function SellerCenter() {
             </button>
           </S.Flex>
           <S.FlexDiv>
-            <MenuTab userType="seller" />
-            <ProductListBox productList={productList} />
+            <MenuTab userType="seller" productsLength={productList.length} />
+            <ProductListBox
+              productList={productList}
+              fetchSellerList={fetchSellerList}
+            />
           </S.FlexDiv>
         </S.Container>
       </S.Wrapper>

@@ -21,7 +21,7 @@ export default function DetailAmountBtn({ count, setCount, stock }) {
       <S.Num>{count}</S.Num>
       <S.CountBtn
         className="right"
-        disabled={stock === count ? true : false}
+        disabled={stock === count || stock === 0 ? true : false}
         onClick={e => handleAmountClick(e)}
       >
         <span className="visually-hidden">+</span>
