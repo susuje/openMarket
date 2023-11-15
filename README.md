@@ -3,6 +3,20 @@
 <br>
 <br>
 
+- 배포 URL : https://play-lab.netlify.app/
+
+- 구매자 계정
+
+    ID : lolo12 <br>
+    PW : lolo12!!
+
+- 판매자 계정
+
+    ID : sellerer12 <br>
+    PW : sellerer12!!
+  
+<br>
+
 ## 프로젝트 기능 소개
 ```
 - PLAY LAB은 구매회원, 판매회원(디자이너)로 나뉘어 물건을 사거나 팔 수 있는 서비스를 제공합니다.
