@@ -77,9 +77,11 @@ export default function TopNavBar({ userType }) {
             </S.UserBtn>
             {userName && showMenu ? (
               <S.Ul>
-                <li onClick={() => navigate('/mypage')}>
-                  <button>마이페이지</button>
-                </li>
+                {userType === 'BUYER' && (
+                  <li onClick={() => navigate('/mypage')}>
+                    <button>마이페이지</button>
+                  </li>
+                )}
                 {userType === 'BUYER' ? (
                   <li className="second" onClick={() => navigate('/cart')}>
                     <button>장바구니</button>
