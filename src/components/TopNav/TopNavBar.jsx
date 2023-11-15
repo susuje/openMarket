@@ -83,11 +83,11 @@ export default function TopNavBar({ userType }) {
                   </li>
                 )}
                 {userType === 'BUYER' ? (
-                  <li className="second" onClick={() => navigate('/cart')}>
+                  <li onClick={() => navigate('/cart')}>
                     <button>장바구니</button>
                   </li>
                 ) : (
-                  <li className="second" onClick={() => navigate('/center')}>
+                  <li onClick={() => navigate('/center')}>
                     <button>판매자 센터</button>
                   </li>
                 )}

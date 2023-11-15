@@ -90,9 +90,7 @@ export const Ul = styled.ul`
     padding: 10px;
     font-size: 14px;
     cursor: pointer;
-    &.second {
-      padding: 0 10px;
-    }
+
     &:hover {
       button {
         transition: 0.1s all;
