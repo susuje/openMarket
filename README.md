@@ -4,6 +4,7 @@
 <br>
 
 - 배포 URL : https://play-lab.netlify.app/
+  (모바일 반응형 준비중)
 
 - 구매자 계정
 
