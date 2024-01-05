@@ -42,7 +42,7 @@ export default function Login() {
 
 ```
 ### 로그인 form
-- react-hook-form을 사용하여 코드의 가독성을 높였습니다.
+- react-hook-form을 사용하여 코드의 가독성을 높이고, 불필요한 리렌더링을 발생시키지않습니다.
 - 전역 상태관리 라이브러리인 recoil을 사용하여 Local Storage에 유저의 고유한 토큰과 로그인 정보를 저장하여 새로고침시 유지됩니다.
 ```jsx
 //로그인 form
