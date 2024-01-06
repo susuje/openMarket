@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as S from './CardProduct.style'
 
-//import glass from '../../assets/img/glass.jpg'
 import cartIcon from '../../assets/icon/large.svg'
 import PutCartModal from '../Modal/PutCartModal'
 import { putCartProduct } from '../../api/cartApi'

@@ -3,9 +3,9 @@ import * as S from './Carousel.style'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import banner from '../../assets/img/banner.svg'
-import banner2 from '../../assets/img/banner2.png'
-import banner3 from '../../assets/img/banner3.svg'
+import banner from '../../assets/img/banner.webp'
+import banner2 from '../../assets/img/banner2.webp'
+import banner3 from '../../assets/img/banner3.webp'
 
 export default function Carousel() {
   const images = useRef([

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import glass from '../../assets/img/glass.jpg'
 
 export const Card = styled.li`
   /* width: 350px;

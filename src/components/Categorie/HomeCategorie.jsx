@@ -7,15 +7,15 @@ import 'slick-carousel/slick/slick-theme.css'
 import { ReactComponent as Next } from '../../assets/icon/activePageRightBtn.svg'
 import { ReactComponent as Prev } from '../../assets/icon/activePageLeftBtn.svg'
 
-import cate1 from '../../assets/img/beaute.jpg'
-import cate2 from '../../assets/img/stat.jpg'
-import cate3 from '../../assets/img/cate4.png' //패션
-import cate4 from '../../assets/img/sh.jpg' //신발
-import cate5 from '../../assets/img/fur.jpg'
-import cate6 from '../../assets/img/cate6.png'
-import cate7 from '../../assets/img/mu.jpg'
-import cate8 from '../../assets/img/cate8.png'
-import cate9 from '../../assets/img/etc.png'
+import cate1 from '../../assets/img/beaute.webp'
+import cate2 from '../../assets/img/stat.webp'
+import cate3 from '../../assets/img/cate4.webp' //패션
+import cate4 from '../../assets/img/sh.webp' //신발
+import cate5 from '../../assets/img/fur.webp'
+import cate6 from '../../assets/img/cate6.webp'
+import cate7 from '../../assets/img/mu.webp'
+import cate8 from '../../assets/img/cate8.webp'
+import cate9 from '../../assets/img/etc.webp'
 
 export default function HomeCategorie({ allPages }) {
   const navigate = useNavigate()

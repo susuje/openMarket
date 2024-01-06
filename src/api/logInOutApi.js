@@ -9,6 +9,6 @@ export const login = async loginData => {
 
 //2. 로그아웃
 export const logout = async IsBuyer => {
-  const result = await BaseInstance.post('/accounts/logout/', null) //null로 해도되나..?
+  const result = await BaseInstance.post('/accounts/logout/', null)
   return result.data
 }

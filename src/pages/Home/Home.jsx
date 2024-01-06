@@ -21,6 +21,7 @@ export default function Home() {
   const [allPages, setAllPages] = useState(1)
 
   useEffect(() => {
+    console.log('홈')
     getAllProducts(pageNum).then(data => {
       setAllProducts(data.results)
       setAllPages(

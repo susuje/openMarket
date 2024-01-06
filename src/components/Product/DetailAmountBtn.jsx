@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as S from './AmountBtn.style'
 
-export default function DetailAmountBtn({ count, setCount, stock }) {
+const DetailAmountBtn = React.memo(function DetailAmountBtn({
+  count,
+  setCount,
+  stock,
+}) {
   const handleAmountClick = e => {
     if (e.target.children[0].innerHTML === '+') {
       setCount(count => count + 1)
@@ -28,4 +32,6 @@ export default function DetailAmountBtn({ count, setCount, stock }) {
       </S.CountBtn>
     </S.CountDiv>
   )
-}
+})
+
+export default DetailAmountBtn

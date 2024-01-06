@@ -30,6 +30,7 @@ export default function ProductDetail() {
   const [tabClicked, setTabClicked] = useState('제품 상세')
   //모달창 오픈시 스크롤 방지
   useEffect(() => {
+    console.log('ㅎㅇ1')
     if (isModalOpen) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -74,6 +75,7 @@ export default function ProductDetail() {
   }
 
   useEffect(() => {
+    console.log('ㅎㅇ2')
     getProductDetail(product_id).then(data => {
       setProductDetail(data)
       //console.log(data)

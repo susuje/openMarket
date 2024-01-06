@@ -14,6 +14,7 @@ export const H1 = styled.h1`
 export const ProductLists = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+
   gap: 6vh 3vw;
 
   /* @media screen and (max-width: 900px) {

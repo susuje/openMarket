@@ -43,6 +43,7 @@ export default function LoginForm({ IsBuyer }) {
   })
 
   const onSubmit = data => {
+    //console.log(data)
     data.login_type = IsBuyer ? 'BUYER' : 'SELLER'
     LoginMutation.mutate(data)
     setUserName(data.username)
