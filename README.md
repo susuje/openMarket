@@ -3,6 +3,149 @@
 <br>
 <br>
 
+- 배포 URL : https://play-lab.netlify.app/
+  (모바일 반응형 준비중)
+
+- 구매자 계정
+
+    ID : lolo12 <br>
+    PW : lolo12!!
+
+- 판매자 계정
+
+    ID : sellerer12 <br>
+    PW : sellerer12!!
+  
+<br>
+
+## 로그인 기능 (코드브레인 과제)
+### 로그인 페이지
+- 로그인은 구매자 / 판매자 로그인으로 구분됩니다.
+- TabBtn 에서 setIsBuyer을 통해 구매자 / 판매자 로그인을 설정할 수 있습니다.
+```jsx
+//로그인 페이지
+export default function Login() {
+  const navigate = useNavigate()
+  const [IsBuyer, setIsBuyer] = useState(true)
+  return (
+    <S.Container>
+      <S.Img src={logo} alt="로고" onClick={() => navigate('/')} />
+      <TabBtn content={'로그인'} setIsBuyer={setIsBuyer} IsBuyer={IsBuyer} />
+      <LoginForm IsBuyer={IsBuyer} />
+      <S.Footer>
+        <a href="/signup">회원가입</a>
+        <a href="/">비밀번호 찾기</a>
+      </S.Footer>
+    </S.Container>
+  )
+}
+
+```
+### 로그인 form
+- react-hook-form을 사용하여 코드의 가독성을 높이고, 불필요한 리렌더링을 발생시키지않습니다.
+- 전역 상태관리 라이브러리인 recoil을 사용하여 Local Storage에 유저의 고유한 토큰과 로그인 정보를 저장하여 새로고침시 유지됩니다.
+```jsx
+//로그인 form
+import { useMutation } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { login } from '../../api/logInOutApi'
+import { useSetRecoilState } from 'recoil'
+import {
+  userTokenState,
+  isLoginState,
+  userTypeState,
+  myUserName,
+} from '../../atoms/Atoms'
+
+export default function LoginForm({ IsBuyer }) {
+ 
+  const [errorM, setErrorM] = useState('')
+  const setUserToken = useSetRecoilState(userTokenState) // 사용자 토큰 상태 설정
+  const setIsLoginState = useSetRecoilState(isLoginState) // 로그인 상태 설정
+  const setUserName = useSetRecoilState(myUserName) // 아이디  설정
+  const setUserTypeState = useSetRecoilState(userTypeState) // 구매or판매자 상태 설정
+
+  const navigate = useNavigate()
+
+  const { register, handleSubmit } = useForm({ mode: 'onChange' })
+
+  const LoginMutation = useMutation(login, {
+    onSuccess(data) {
+      setIsLoginState(true)
+      setUserToken(data.token)
+      setUserTypeState(data.user_type)
+      navigate('/')
+    },
+    onError(error) {
+      setErrorM(error.response.data.FAIL_Message)
+    },
+  })
+
+  const onSubmit = data => {
+    //console.log(data)
+    data.login_type = IsBuyer ? 'BUYER' : 'SELLER'
+    LoginMutation.mutate(data)
+    setUserName(data.username)
+  }
+
+  return (
+    <S.Form onSubmit={handleSubmit(onSubmit)}>
+      <S.LoginInput
+        placeholder="아이디"
+        type="text"
+        {...register('username', {
+          required: '* 아이디는 필수 입력입니다.',
+        })}
+      />
+      <S.LoginInput
+        placeholder="비밀번호"
+        type="password"
+        {...register('password', {
+          required: '* 비밀번호는 필수 입력입니다.',
+        })}
+      />
+      <S.Err>{errorM}</S.Err>
+      <S.CommonBtn>로그인</S.CommonBtn>
+    </S.Form>
+  )
+}
+
+
+```
+
+### 유효성 검사
+- 회원가입시, react-hook-form의 pattern 과 정규식을 통해 아이디와 비밀번호 설정에 유효성 검사를 실시하였습니다.
+  ```jsx
+   const Regex = {
+    id: /^[A-Za-z0-9]{4,20}$/, //20자 이내의 영어 소+대문자, 숫자 가능
+    pw: /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/, //8자, 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용
+    num: /^[0-9]+$/,
+  }
+
+  ...//
+
+  <S.SignInput
+        id="pw"
+        className={checkPw ? 'checked' : 'unChecked'}
+        type="password"
+        {...register('password', {
+          required: '* 비밀번호는 필수 입력입니다.',
+          pattern: {
+            value: Regex.pw,
+            message: '* 8자 이상의 영어,숫자,특수기호를 조합해주세요.',
+          },
+        })}
+      />
+
+  ...//
+  ```
+
+
+<br>
+<br>
+<br>
+
 ## 프로젝트 기능 소개
 ```
 - PLAY LAB은 구매회원, 판매회원(디자이너)로 나뉘어 물건을 사거나 팔 수 있는 서비스를 제공합니다.
